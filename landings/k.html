@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diya Night — East Godavari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Noto+Serif+Telugu:wght@400;500;700&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#140d08;
+  --ink:#f4e3c8;
+  --gold:#c89b6a;
+  --gold-hi:#e8c186;
+  --hair:rgba(200,155,106,.34);
+  --flame-a:#ffcf6e;
+  --flame-b:#ffb03a;
+  --flame-c:#e5442a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  min-height:100svh;
+  overflow-x:hidden;
+}
+::selection{background:var(--flame-c);color:var(--bg)}
+a{color:inherit}
+
+/* ---------- ember canvas ---------- */
+#embers{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ---------- gold hairline frame ---------- */
+.frame{
+  position:fixed;inset:clamp(10px,1.6vw,20px);
+  border:1px solid var(--hair);
+  pointer-events:none;z-index:5;
+}
+.frame::before,.frame::after{
+  content:"";position:absolute;width:7px;height:7px;
+  border:1px solid var(--gold);transform:rotate(45deg);
+  background:var(--bg);
+}
+.frame::before{top:-4px;left:50%;margin-left:-4px}
+.frame::after{bottom:-4px;left:50%;margin-left:-4px}
+
+/* ---------- stage ---------- */
+.stage{
+  position:relative;z-index:1;
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  padding:clamp(26px,3.4vw,44px) clamp(22px,4vw,56px) calc(clamp(26px,3.4vw,44px) + 2.4rem);
+}
+
+/* top bar */
+.top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;
+}
+.brand .en{
+  font-size:clamp(.68rem,1vw,.8rem);
+  letter-spacing:.42em;text-indent:.42em;
+  color:var(--gold-hi);
+}
+.brand .te{
+  font-family:"Noto Serif Telugu",serif;
+  font-size:clamp(.8rem,1.1vw,.95rem);
+  color:var(--gold);margin-top:.3rem;
+}
+.enter{
+  font-size:.68rem;letter-spacing:.3em;text-indent:.3em;
+  text-decoration:none;color:var(--gold-hi);
+  border-bottom:1px solid var(--hair);
+  padding-bottom:.45em;white-space:nowrap;
+  transition:color .3s,border-color .3s;
+}
+.enter:hover{color:var(--flame-b);border-color:var(--flame-b)}
+
+/* ---------- title block ---------- */
+.title{
+  text-align:center;
+  margin-top:clamp(1.6rem,4.5svh,4rem);
+  position:relative;z-index:3;
+}
+.kicker{
+  font-size:.62rem;letter-spacing:.4em;text-indent:.4em;
+  color:var(--gold);
+}
+.title .te{
+  font-family:"Noto Serif Telugu",serif;font-weight:500;
+  font-size:clamp(1.15rem,2.6vw,2rem);
+  color:var(--gold-hi);
+  margin-top:clamp(.8rem,1.8svh,1.4rem);
+}
+h1{
+  font-family:"Fraunces",serif;
+  font-variation-settings:"opsz" 144;
+  line-height:.96;
+  margin-top:clamp(.5rem,1.4svh,1rem);
+}
+h1 .l1{
+  display:block;
+  font-weight:300;
+  font-size:clamp(1rem,2.6vw,2rem);
+  letter-spacing:.42em;text-indent:.42em;
+  color:var(--ink);
+  margin-bottom:clamp(.4rem,1svh,.8rem);
+}
+h1 .l2{
+  display:block;white-space:nowrap;
+  font-weight:800;
+  font-size:clamp(1.85rem,8.4vw,7.4rem);
+  letter-spacing:-.015em;
+  background:linear-gradient(180deg,var(--flame-a) 0%,var(--flame-b) 42%,var(--flame-c) 100%);
+  background-size:100% 170%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:flame 5.5s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 34px rgba(229,68,42,.28));
+}
+@keyframes flame{
+  0%{background-position:50% 100%}
+  100%{background-position:50% 0%}
+}
+
+/* ---------- cinema strip ---------- */
+.reel{
+  position:relative;z-index:2;
+  width:min(920px,92vw);
+  margin:clamp(-3.4rem,-3.4vw,-1.4rem) auto 0;
+  display:flex;flex-direction:column;
+}
+@media (max-height:820px) and (min-width:768px){
+  .reel{width:min(780px,88vw)}
+}
+.strip{
+  position:relative;
+  background:#000;
+  border-top:1px solid var(--gold);
+  border-bottom:1px solid var(--gold);
+  aspect-ratio:21/9;
+  overflow:hidden;
+  box-shadow:0 0 80px rgba(229,68,42,.14),0 30px 60px rgba(0,0,0,.55);
+  cursor:pointer;
+}
+.strip video{
+  position:absolute;top:6%;left:0;
+  width:100%;height:88%;
+  object-fit:cover;
+  transition:transform 6s ease;
+}
+.strip::after{ /* scrim under overlapping headline */
+  content:"";position:absolute;inset:0 0 55% 0;
+  background:linear-gradient(180deg,rgba(20,13,8,.55),transparent);
+  pointer-events:none;
+}
+.caption{
+  display:flex;justify-content:space-between;gap:1rem;
+  padding:.65rem .15rem 0;
+  font-size:.6rem;letter-spacing:.26em;
+  color:var(--gold);
+}
+.caption .r{text-align:right}
+
+/* tagline + cta */
+.after{
+  text-align:center;
+  margin-top:clamp(1.3rem,3svh,2.4rem);
+  position:relative;z-index:2;
+}
+.tagline{
+  font-family:"Fraunces",serif;font-style:italic;font-weight:300;
+  font-size:clamp(1rem,1.8vw,1.35rem);
+  color:var(--ink);
+}
+.cta{
+  display:inline-block;margin-top:clamp(1rem,2.4svh,1.7rem);
+  font:inherit;font-size:.7rem;letter-spacing:.36em;text-indent:.36em;
+  color:var(--gold-hi);background:transparent;
+  border:1px solid var(--gold);
+  padding:1em 2.1em .95em 2.4em;
+  cursor:pointer;
+  transition:background .35s,color .35s,box-shadow .35s,border-color .35s;
+}
+.cta:hover,.cta:focus-visible{
+  background:linear-gradient(180deg,var(--flame-b),var(--flame-c));
+  border-color:var(--flame-b);
+  color:#140d08;
+  box-shadow:0 0 44px rgba(255,176,58,.4);
+}
+
+/* ---------- places filmstrip ---------- */
+.places{
+  margin-top:auto;
+  padding-top:clamp(1.6rem,4svh,3rem);
+  position:relative;z-index:2;
+}
+.places ul{
+  list-style:none;
+  display:flex;justify-content:space-between;gap:1.6rem;
+  overflow-x:auto;scrollbar-width:none;
+  padding:1.1rem .2rem;
+  border-top:1px solid var(--hair);
+}
+.places ul::-webkit-scrollbar{display:none}
+.places li{
+  flex:0 0 auto;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.45rem;
+}
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#ffe1a1,var(--flame-b) 55%,var(--flame-c));
+  box-shadow:0 0 10px rgba(255,176,58,.9),0 0 26px rgba(229,68,42,.5);
+  animation:flicker 2.8s ease-in-out infinite;
+}
+@keyframes flicker{
+  0%,100%{opacity:1;transform:scale(1)}
+  38%{opacity:.65;transform:scale(.85)}
+  62%{opacity:.9}
+  80%{opacity:.55;transform:scale(.9)}
+}
+.places .te{
+  font-family:"Noto Serif Telugu",serif;
+  font-size:.78rem;color:var(--gold-hi);
+}
+.places .en{
+  font-size:.55rem;letter-spacing:.3em;text-indent:.3em;
+  color:var(--gold);
+}
+
+/* ---------- cinema mode ---------- */
+.veil{
+  position:fixed;inset:0;background:#000;
+  opacity:0;pointer-events:none;transition:opacity .5s;z-index:30;
+}
+body.cinema .veil{opacity:.92;pointer-events:auto}
+body.cinema .reel{
+  position:fixed;inset:0;width:auto;margin:0;z-index:40;
+  animation:reelin .6s ease both;
+}
+body.cinema .strip{
+  aspect-ratio:auto;flex:1;border:0;
+}
+body.cinema .strip video{top:0;height:100%}
+body.cinema .strip::after{display:none}
+body.cinema .caption{
+  position:fixed;left:0;right:0;bottom:0;
+  padding:1rem clamp(22px,4vw,56px) 1.2rem;
+  background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);
+}
+@keyframes reelin{from{opacity:0}to{opacity:1}}
+.exit-hint{
+  position:fixed;top:1.4rem;left:50%;transform:translateX(-50%);
+  font-size:.58rem;letter-spacing:.34em;text-indent:.34em;color:var(--gold-hi);
+  z-index:41;opacity:0;pointer-events:none;transition:opacity .5s .4s;
+}
+body.cinema .exit-hint{opacity:1}
+
+/* ---------- back badge ---------- */
+.back{
+  position:fixed;left:clamp(10px,1.6vw,20px);bottom:clamp(10px,1.6vw,20px);
+  z-index:60;
+  font-size:.6rem;letter-spacing:.22em;
+  text-decoration:none;color:var(--gold-hi);
+  background:rgba(20,13,8,.88);
+  border:1px solid var(--hair);
+  padding:.6em 1em;
+  transition:color .3s,border-color .3s;
+}
+.back:hover{color:var(--flame-b);border-color:var(--flame-b)}
+
+/* ---------- load choreography ---------- */
+.in{opacity:0;transform:translateY(16px);animation:rise 1s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+h1 .l2.in{animation:rise 1s cubic-bezier(.22,1,.36,1) forwards,ignite 1.6s ease forwards,flame 5.5s ease-in-out 1.6s infinite alternate}
+@keyframes ignite{
+  from{filter:brightness(.35) saturate(.4) drop-shadow(0 0 0 rgba(229,68,42,0))}
+  to{filter:brightness(1) saturate(1) drop-shadow(0 0 34px rgba(229,68,42,.28))}
+}
+.d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}
+.d4{animation-delay:.55s}.d5{animation-delay:.8s}.d6{animation-delay:1s}
+.d7{animation-delay:1.15s}.d8{animation-delay:1.3s}
+
+/* ---------- mobile ---------- */
+@media (max-width:640px){
+  .top{flex-direction:column;align-items:center;text-align:center;gap:1rem}
+  .strip{aspect-ratio:16/9}
+  .places ul{justify-content:flex-start;gap:1.9rem}
+  h1 .l1{letter-spacing:.3em;text-indent:.3em}
+  .caption{letter-spacing:.18em}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important}
+  .in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="embers" aria-hidden="true"></canvas>
+<div class="frame" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"></div>
+<p class="exit-hint">ESC OR TAP TO RETURN</p>
+
+<main class="stage">
+
+  <header class="top in d1">
+    <div class="brand">
+      <div class="en">EAST GODAVARI</div>
+      <div class="te">తూర్పు గోదావరి</div>
+    </div>
+    <a class="enter" href="../index.html">ENTER THE FULL SITE →</a>
+  </header>
+
+  <section class="title">
+    <p class="kicker in d2">NIGHTLY, AT DUSK · GOWTHAMI GHAT</p>
+    <p class="te in d3" lang="te">కోటి దీపాల నది</p>
+    <h1>
+      <span class="l1 in d3">THE RIVER OF</span>
+      <span class="l2 in d4">TEN&nbsp;MILLION&nbsp;LAMPS</span>
+    </h1>
+  </section>
+
+  <div class="reel in d5">
+    <div class="strip" id="strip" role="button" tabindex="0" aria-label="Watch the harathi film full screen">
+      <video id="film" src="../media/film-6.mp4" poster="../img/harathi-night-800.webp"
+             autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="caption">
+      <span>REEL 06 — గోదావరి హారతి</span>
+      <span class="r">RAJAHMUNDRY · SILENT</span>
+    </div>
+  </div>
+
+  <div class="after">
+    <p class="tagline in d6">One river, and everything it grew.</p>
+    <button class="cta in d7" id="witness">WITNESS THE HARATHI</button>
+  </div>
+
+  <nav class="places in d8" aria-label="Places along the Godavari">
+    <ul>
+      <li><span class="dot" style="animation-delay:.2s"></span><span class="te" lang="te">పాపికొండలు</span><span class="en">PAPIKONDALU</span></li>
+      <li><span class="dot" style="animation-delay:1.1s"></span><span class="te" lang="te">రాజమహేంద్రవరం</span><span class="en">RAJAHMUNDRY</span></li>
+      <li><span class="dot" style="animation-delay:.6s"></span><span class="te" lang="te">ధవళేశ్వరం</span><span class="en">DOWLESWARAM</span></li>
+      <li><span class="dot" style="animation-delay:1.7s"></span><span class="te" lang="te">కడియం</span><span class="en">KADIYAM</span></li>
+      <li><span class="dot" style="animation-delay:.9s"></span><span class="te" lang="te">కోనసీమ</span><span class="en">KONASEEMA</span></li>
+      <li><span class="dot" style="animation-delay:2.2s"></span><span class="te" lang="te">గౌతమీ ఘాట్</span><span class="en">GOWTHAMI GHAT</span></li>
+      <li><span class="dot" style="animation-delay:1.4s"></span><span class="te" lang="te">అంతర్వేది</span><span class="en">ANTARVEDI</span></li>
+    </ul>
+  </nav>
+
+</main>
+
+<a class="back" href="./">← all concepts</a>
+
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- embers ---- */
+  var cv = document.getElementById('embers'), cx = cv.getContext('2d'),
+      W, H, parts = [], boost = 1;
+  function size(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  addEventListener('resize', size); size();
+  function spawn(){
+    parts.push({
+      x: Math.random()*W, y: H + 8,
+      vy: .3 + Math.random()*.7, vx: (Math.random()-.5)*.25,
+      r: .6 + Math.random()*1.7, a: .25 + Math.random()*.55,
+      hue: 22 + Math.random()*18, ph: Math.random()*6.28
+    });
+  }
+  function tick(t){
+    cx.clearRect(0,0,W,H);
+    if (parts.length < 55*boost && Math.random() < .3*boost) spawn();
+    for (var i = parts.length-1; i >= 0; i--){
+      var p = parts[i];
+      p.y -= p.vy; p.x += p.vx + Math.sin(t/900 + p.ph)*.3;
+      var fl = .7 + .3*Math.sin(t/120 + p.ph);
+      cx.beginPath();
+      cx.arc(p.x, p.y, p.r, 0, 6.28);
+      cx.fillStyle = 'hsla(' + p.hue + ',95%,60%,' + (p.a*fl*Math.min(1,p.y/(H*.25))) + ')';
+      cx.fill();
+      if (p.y < -10) parts.splice(i,1);
+    }
+    requestAnimationFrame(tick);
+  }
+  if (!reduced) requestAnimationFrame(tick);
+
+  /* ---- cinema mode ---- */
+  var body = document.body,
+      film = document.getElementById('film'),
+      strip = document.getElementById('strip'),
+      cta = document.getElementById('witness');
+  function enter(){ body.classList.add('cinema'); boost = 2.2; film.play(); }
+  function exit(){ body.classList.remove('cinema'); boost = 1; }
+  cta.addEventListener('click', enter);
+  cta.addEventListener('mouseenter', function(){ if(!body.classList.contains('cinema')) boost = 1.8; });
+  cta.addEventListener('mouseleave', function(){ if(!body.classList.contains('cinema')) boost = 1; });
+  strip.addEventListener('click', function(){ body.classList.contains('cinema') ? exit() : enter(); });
+  strip.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); enter(); }});
+  document.querySelector('.veil').addEventListener('click', exit);
+  addEventListener('keydown', function(e){ if(e.key==='Escape') exit(); });
+})();
+</script>
+</body>
+</html>

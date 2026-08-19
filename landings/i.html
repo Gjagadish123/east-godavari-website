@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GODAVARI — Golden Hour, Redefined · East Godavari</title>
+<meta name="description" content="East Godavari, Andhra Pradesh. One river, and everything it grew.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Serif+Telugu:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ————— Golden Hour, Redefined ————— */
+  :root{
+    --ink:#221207;          /* deep umber ground */
+    --cream:#f6ebd5;        /* primary type on film */
+    --cream-dim:#efe0c4;    /* secondary type on film (≥4.5:1 on wash) */
+    --champagne:#f3e6cc;    /* light surface */
+    --gold:#c9a35a;         /* hairlines only, decorative */
+    --rust:#8a3f24;         /* captions — ONLY on champagne surfaces */
+    --serif:'Italiana', serif;
+    --italic:'Cormorant Garamond', serif;
+    --mono:'IBM Plex Mono', monospace;
+    --telugu:'Noto Serif Telugu', serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--ink);
+    color:var(--cream);
+    font-family:var(--mono);
+    overflow-x:hidden;
+    min-height:100svh;
+  }
+  ::selection{background:var(--rust);color:var(--champagne)}
+  a{color:inherit;text-decoration:none}
+
+  /* ————— The film ————— */
+  .stage{
+    position:relative;
+    min-height:100svh;
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+    isolation:isolate;
+    overflow:hidden;
+  }
+  .film{
+    position:absolute;inset:0;z-index:-2;overflow:hidden;background:var(--ink);
+  }
+  .film video,.film img.poster{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    /* darken + warm so cream type holds ≥4.5:1 everywhere */
+    filter:brightness(.6) saturate(1.15) sepia(.12);
+    transform:scale(1.15);
+    will-change:transform;
+  }
+  .wash{
+    position:absolute;inset:0;z-index:-1;
+    background:
+      linear-gradient(180deg,
+        rgba(34,18,7,.62) 0%,
+        rgba(34,18,7,.28) 26%,
+        rgba(34,18,7,.34) 52%,
+        rgba(34,18,7,.62) 78%,
+        rgba(34,18,7,.82) 100%),
+      radial-gradient(120% 90% at 50% 42%, rgba(58,32,10,0) 40%, rgba(24,12,4,.5) 100%);
+  }
+  /* faint retro-print grain */
+  .grain{
+    position:absolute;inset:0;z-index:-1;opacity:.5;pointer-events:none;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+  }
+
+  /* ————— Header ————— */
+  header{
+    display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;
+    padding:clamp(1.1rem,2.4vw,1.8rem) clamp(1.1rem,3.5vw,3rem) clamp(.9rem,1.6vw,1.2rem);
+  }
+  .mark{display:flex;align-items:baseline;gap:.85rem;white-space:nowrap}
+  .mark .en{
+    font-family:var(--serif);font-size:clamp(1.02rem,1.5vw,1.3rem);
+    letter-spacing:.34em;text-transform:uppercase;
+  }
+  .mark .te{
+    font-family:var(--telugu);font-size:clamp(.8rem,1.05vw,.95rem);
+    color:var(--cream-dim);letter-spacing:.04em;
+  }
+  .h-cap{
+    font-size:clamp(.55rem,.72vw,.66rem);font-weight:400;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--cream-dim);
+    text-align:right;line-height:2;
+  }
+  .rule-h{
+    height:1px;background:linear-gradient(90deg,transparent,var(--gold) 12%,var(--gold) 88%,transparent);
+    margin:0 clamp(1.1rem,3.5vw,3rem);opacity:.75;transform-origin:left center;
+  }
+
+  /* ————— Coordinates spine (left) ————— */
+  .spine{
+    position:absolute;left:clamp(1.1rem,3.5vw,3rem);top:50%;z-index:2;
+    transform:translateY(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:1rem;
+  }
+  .spine .line{width:1px;height:clamp(3rem,9vh,6.5rem);background:var(--gold);opacity:.7}
+  .spine .co{
+    writing-mode:vertical-rl;font-size:.58rem;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--cream-dim);white-space:nowrap;
+  }
+
+  /* ————— Centre composition ————— */
+  .centre{
+    position:relative;z-index:1;align-self:center;
+    display:flex;flex-direction:column;align-items:center;
+    padding:0 clamp(1.1rem,3.5vw,3rem);
+    text-align:center;
+  }
+  .kicker{
+    display:flex;align-items:center;gap:1.1rem;
+    font-size:clamp(.56rem,.75vw,.68rem);letter-spacing:.42em;text-transform:uppercase;
+    color:var(--cream-dim);margin-bottom:clamp(.4rem,1.4vh,1.1rem);white-space:nowrap;
+  }
+  .kicker::before,.kicker::after{
+    content:"";height:1px;width:clamp(1.6rem,6vw,5.5rem);background:var(--gold);opacity:.8;
+  }
+  h1{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(3.6rem,16.5vw,15.5rem);
+    line-height:.92;letter-spacing:.045em;
+    color:var(--cream);
+    white-space:nowrap;
+    text-transform:uppercase;
+    /* the word sits across the horizon of the film */
+    margin:0 -0.045em 0 0;
+  }
+  h1 .l{display:inline-block;will-change:transform,opacity}
+  .sub{
+    font-family:var(--italic);font-style:italic;font-weight:500;
+    font-size:clamp(1.25rem,2.9vw,2.4rem);
+    color:var(--cream);letter-spacing:.02em;
+    margin-top:clamp(.5rem,1.8vh,1.4rem);
+  }
+  .tag{
+    margin-top:clamp(.8rem,2vh,1.4rem);
+    font-size:clamp(.58rem,.75vw,.7rem);letter-spacing:.4em;text-transform:uppercase;
+    color:var(--cream-dim);
+  }
+  .cta{
+    display:inline-flex;align-items:center;gap:.9rem;
+    margin-top:clamp(1.4rem,3.4vh,2.4rem);
+    padding:.95em 2.4em;
+    border:1px solid var(--gold);
+    font-size:clamp(.6rem,.78vw,.72rem);letter-spacing:.38em;text-transform:uppercase;
+    color:var(--cream);
+    transition:background .45s cubic-bezier(.22,1,.36,1),color .45s cubic-bezier(.22,1,.36,1);
+  }
+  .cta .ar{font-family:var(--italic);font-style:italic;letter-spacing:0;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+  .cta:hover{background:var(--champagne);color:var(--rust)}
+  .cta:hover .ar{transform:translateX(.35em)}
+  .cta:focus-visible{outline:2px solid var(--champagne);outline-offset:3px}
+
+  /* golden-hour caption chip, top of centre-right */
+  .chip{
+    position:absolute;right:clamp(1.1rem,3.5vw,3rem);top:clamp(4.6rem,11vh,7rem);z-index:2;
+    background:var(--champagne);color:var(--rust);
+    font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;
+    padding:.55em 1.1em;line-height:1.9;text-align:right;
+  }
+
+  /* ————— Places ticker ————— */
+  .tickerwrap{
+    position:relative;z-index:3;background:var(--champagne);
+    border-top:1px solid var(--gold);
+    overflow:hidden;
+  }
+  .ticker{
+    display:flex;width:max-content;
+    animation:tick 46s linear infinite;
+  }
+  .ticker ul{display:flex;list-style:none;align-items:center}
+  .ticker li{
+    display:flex;align-items:center;gap:1.4rem;
+    padding:.9rem 1.4rem .9rem 0;white-space:nowrap;
+    color:var(--rust);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
+  }
+  .ticker li .te{font-family:var(--telugu);font-size:.78rem;letter-spacing:.05em;text-transform:none}
+  .ticker li::after{content:"◆";color:var(--gold);font-size:.5rem;margin-left:1.4rem}
+  @keyframes tick{to{transform:translateX(-50%)}}
+
+  /* ————— fixed back badge ————— */
+  .badge{
+    position:fixed;left:clamp(.8rem,2vw,1.6rem);bottom:clamp(3.4rem,7vh,4.2rem);z-index:9;
+    background:var(--champagne);color:var(--rust);
+    border:1px solid var(--gold);
+    font-family:var(--mono);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;
+    padding:.6em 1.2em;
+    transition:background .35s,color .35s;
+  }
+  .badge:hover{background:var(--rust);color:var(--champagne)}
+
+  /* ————— Responsive ————— */
+  @media (max-width:720px){
+    header{flex-direction:column;gap:.5rem;align-items:flex-start}
+    .h-cap{text-align:left}
+    .spine{display:none}
+    .chip{display:none}
+    h1{font-size:19vw;letter-spacing:.03em}
+    .sub{font-size:clamp(1.15rem,5.4vw,1.5rem)}
+    .badge{bottom:4rem}
+    .ticker li{font-size:.58rem}
+  }
+  @media (min-width:1601px){
+    .stage{max-width:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .ticker{animation:none;flex-wrap:wrap;width:100%}
+    .film video{display:none}
+    .film img.poster{transform:scale(1.02)}
+  }
+</style>
+</head>
+<body>
+
+<main class="stage">
+  <div class="film" aria-hidden="true">
+    <img class="poster" src="../img/rajahmundry-riverfront-1920.webp"
+         srcset="../img/rajahmundry-riverfront-800.webp 800w, ../img/rajahmundry-riverfront-1920.webp 1920w"
+         sizes="100vw" alt="">
+    <video id="film" autoplay muted loop playsinline
+           poster="../img/rajahmundry-riverfront-1920.webp"
+           src="../media/film-2.mp4"></video>
+  </div>
+  <div class="wash" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div>
+    <header data-in>
+      <div class="mark">
+        <span class="en">East&nbsp;Godavari</span>
+        <span class="te" lang="te">తూర్పు గోదావరి</span>
+      </div>
+      <p class="h-cap">Andhra Pradesh · India<br>A brand film in one river</p>
+    </header>
+    <div class="rule-h" data-rule></div>
+  </div>
+
+  <div class="spine" data-in aria-hidden="true">
+    <span class="line"></span>
+    <span class="co">17.00° N — 81.78° E · Godāvari delta</span>
+    <span class="line"></span>
+  </div>
+
+  <p class="chip" data-in>Shot at golden hour<br>Rajahmundry riverfront</p>
+
+  <section class="centre">
+    <p class="kicker" data-in>Golden hour, redefined</p>
+    <h1 aria-label="Godavari" id="word">GODAVARI</h1>
+    <p class="sub" data-in>the river that grew a civilisation</p>
+    <p class="tag" data-in>One river, and everything it grew.</p>
+    <a class="cta" data-in href="../index.html">Enter the full site <span class="ar">→</span></a>
+  </section>
+
+  <div class="tickerwrap" data-in>
+    <div class="ticker" aria-label="Places of East Godavari">
+      <ul>
+        <li><span class="te" lang="te">పాపికొండలు</span> Papikondalu</li>
+        <li><span class="te" lang="te">రాజమహేంద్రవరం</span> Rajahmundry</li>
+        <li><span class="te" lang="te">ధవళేశ్వరం</span> Dowleswaram</li>
+        <li><span class="te" lang="te">కడియం</span> Kadiyam</li>
+        <li><span class="te" lang="te">కోనసీమ</span> Konaseema</li>
+        <li><span class="te" lang="te">గౌతమీ ఘాట్</span> Gowthami Ghat</li>
+        <li><span class="te" lang="te">అంతర్వేది</span> Antarvedi</li>
+      </ul>
+      <ul aria-hidden="true">
+        <li><span class="te" lang="te">పాపికొండలు</span> Papikondalu</li>
+        <li><span class="te" lang="te">రాజమహేంద్రవరం</span> Rajahmundry</li>
+        <li><span class="te" lang="te">ధవళేశ్వరం</span> Dowleswaram</li>
+        <li><span class="te" lang="te">కడియం</span> Kadiyam</li>
+        <li><span class="te" lang="te">కోనసీమ</span> Konaseema</li>
+        <li><span class="te" lang="te">గౌతమీ ఘాట్</span> Gowthami Ghat</li>
+        <li><span class="te" lang="te">అంతర్వేది</span> Antarvedi</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<a class="badge" href="./">← all concepts</a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+<script>
+(function(){
+  // split GODAVARI into letters for the stagger
+  var word=document.getElementById('word');
+  word.innerHTML=word.textContent.split('').map(function(c){return '<span class="l">'+c+'</span>'}).join('');
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!window.gsap||reduce) return; // ponytail: no gsap / reduced motion → content already visible, static film
+
+  var ease='power3.out';
+  var tl=gsap.timeline({defaults:{ease:ease}});
+  tl.from('[data-rule]',{scaleX:0,duration:1.1},0)
+    .from('header',{y:-16,autoAlpha:0,duration:.9},.1)
+    .from('.kicker',{autoAlpha:0,y:10,duration:.7},.35)
+    .from('#word .l',{yPercent:38,autoAlpha:0,duration:.9,stagger:.06},.5)
+    .from('.sub',{autoAlpha:0,y:14,duration:.8},1.15)
+    .from('.tag',{autoAlpha:0,duration:.7},1.35)
+    .from('.cta',{autoAlpha:0,y:12,duration:.7},1.5)
+    .from('.spine, .chip',{autoAlpha:0,duration:.8},1.4)
+    .from('.tickerwrap',{yPercent:100,duration:.8,ease:'power2.out'},1.55)
+    .from('.badge',{autoAlpha:0,duration:.5},1.9); // done ~2.4s
+
+  // the slow pan — five-star brand-film drift
+  gsap.fromTo('#film',{xPercent:-2.4},{xPercent:2.4,duration:34,ease:'sine.inOut',yoyo:true,repeat:-1});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>East Godavari — Kalamkari Frame</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Noto+Serif+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --madder:#7a1f1a;
+  --madder-deep:#5c130f;
+  --indigo:#1c2a52;
+  --bone:#ece2cc;
+  --gold:#c9a24b;        /* hairlines only */
+  --gold-text:#e0bd66;   /* 5.5:1 on madder */
+  --fw: clamp(18px, 3.2vw, 46px); /* frame width */
+  --serif:"Fraunces", Georgia, serif;
+  --telugu:"Noto Serif Telugu","Fraunces",Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--madder);
+  color:var(--bone);
+  font-family:var(--serif);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* woven cloth ground */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(236,226,204,.05) 0 1px, transparent 1px 3px),
+    radial-gradient(120% 90% at 50% 42%, #86251f 0%, var(--madder) 55%, var(--madder-deep) 100%);
+}
+
+/* ---------- KALAMKARI FRAME ---------- */
+.frame{position:fixed;inset:0;z-index:40;pointer-events:none}
+.fs{position:absolute;background-image:url(../media/myth-kalamkari.webp);filter:saturate(.9) contrast(1.05) brightness(.9)}
+.fs.top   {top:0;left:0;right:0;height:var(--fw);background-size:auto 340%;background-position:50% 12%}
+.fs.bottom{bottom:0;left:0;right:0;height:var(--fw);background-size:auto 340%;background-position:50% 88%}
+.fs.left  {top:0;bottom:0;left:0;width:var(--fw);background-size:340% auto;background-position:10% 50%}
+.fs.right {top:0;bottom:0;right:0;width:var(--fw);background-size:340% auto;background-position:90% 50%}
+.fs.top,.fs.bottom{box-shadow:inset 0 0 0 2px rgba(28,42,82,.55)}
+.fs.left,.fs.right{box-shadow:inset 0 0 0 2px rgba(28,42,82,.55)}
+/* gold hairline just inside the border */
+.hairline{position:fixed;z-index:41;pointer-events:none;
+  inset:calc(var(--fw) + 6px);
+  border:1px solid rgba(201,162,75,.75)}
+.hairline::before{content:"";position:absolute;inset:4px;border:1px solid rgba(236,226,204,.22)}
+/* corner medallions */
+.med{position:fixed;z-index:42;pointer-events:none;
+  width:calc(var(--fw)*2.4);height:calc(var(--fw)*2.4);border-radius:50%;
+  background-image:url(../media/myth-kalamkari.webp);background-size:900%;
+  border:2px solid var(--gold);
+  box-shadow:0 0 0 5px var(--madder-deep),0 0 0 6px rgba(201,162,75,.6);
+  filter:saturate(.95) contrast(1.05)}
+.med.tl{top:calc(var(--fw)*-.2);left:calc(var(--fw)*-.2);background-position:8% 10%}
+.med.tr{top:calc(var(--fw)*-.2);right:calc(var(--fw)*-.2);background-position:88% 12%}
+.med.bl{bottom:calc(var(--fw)*-.2);left:calc(var(--fw)*-.2);background-position:12% 86%}
+.med.br{bottom:calc(var(--fw)*-.2);right:calc(var(--fw)*-.2);background-position:90% 88%}
+/* the little launch that sails the bottom border */
+.boat{position:fixed;z-index:43;pointer-events:none;
+  bottom:calc(var(--fw)*.08);left:0;height:calc(var(--fw)*.9);
+  filter:sepia(1) saturate(.55) brightness(1.75) contrast(.9);opacity:.9;
+  animation:sail 75s linear infinite}
+@keyframes sail{from{transform:translateX(-15vw)}to{transform:translateX(112vw)}}
+
+/* ---------- STAGE ---------- */
+.stage{position:relative;z-index:10;min-height:100dvh;
+  display:flex;flex-direction:column;
+  padding:calc(var(--fw) + 18px) calc(var(--fw) + 16px)}
+/* museum plate header */
+header{display:flex;justify-content:space-between;gap:1rem;
+  padding:0 calc(var(--fw)*1.6);
+  font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bone)}
+header .r{text-align:right}
+header span{color:var(--gold-text)}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;min-height:0;padding-bottom:1.2rem}
+
+/* cloth window (temple arch) */
+.window{position:absolute;top:2%;bottom:5%;left:50%;transform:translateX(-50%);
+  width:min(46vw,530px);
+  border-radius:calc(min(46vw,530px)/2) calc(min(46vw,530px)/2) 10px 10px;
+  overflow:hidden;z-index:1;
+  border:2px solid var(--gold);
+  box-shadow:0 0 0 7px var(--madder-deep),0 0 0 8px rgba(201,162,75,.55),0 26px 70px rgba(20,4,3,.55)}
+.window .media,.window video,.window img.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.window img.ph{display:none}
+/* vignette scrims: keep bone/gold type ≥4.5:1 where it crosses the film */
+.window::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg, rgba(40,10,8,.7) 0%, rgba(40,10,8,0) 26%, rgba(58,14,10,0) 38%, rgba(58,14,10,.9) 68%, rgba(78,19,14,.97) 100%)}
+.window::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(236,226,204,.28), inset 0 0 46px rgba(22,8,6,.38)}
+/* cloth shade that wipes during a swap */
+.shade{position:absolute;inset:-2%;z-index:4;transform:translateY(-104%);
+  background:url(../media/myth-kalamkari.webp) 50% 50%/cover;
+  filter:saturate(.85) brightness(.85);
+  border-bottom:3px solid var(--gold)}
+
+/* flanking textile panels (desktop) */
+.panel{position:absolute;top:12%;width:clamp(90px,9vw,140px);height:56%;z-index:1;
+  background-size:cover;background-position:50% 30%;
+  border:1px solid var(--gold);border-radius:6px;
+  box-shadow:0 0 0 5px var(--madder-deep),0 0 0 6px rgba(201,162,75,.45),0 18px 40px rgba(20,4,3,.45);
+  filter:saturate(.95)}
+.panel figcaption{position:absolute;left:0;right:0;bottom:-2rem;
+  font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;text-align:center;color:var(--gold-text)}
+.panel.l{left:clamp(0px,6vw,9vw);background-image:url(../media/nannayya-court.webp)}
+.panel.r{right:clamp(0px,6vw,9vw);background-image:url(../media/lamps-mural.webp)}
+
+/* identity */
+.id{position:relative;z-index:5;text-align:center;width:100%}
+/* woven ribbon band sewn across the arch — guarantees type contrast over the film */
+.band{position:relative;width:min(92vw,640px);margin:0 auto;padding:.8rem 1rem .55rem;
+  border-left:1px solid rgba(201,162,75,.7);border-right:1px solid rgba(201,162,75,.7);
+  background:linear-gradient(180deg, rgba(66,15,11,.95), rgba(52,11,8,.95));
+  border-top:1px solid rgba(201,162,75,.7);border-bottom:1px solid rgba(201,162,75,.7);
+  box-shadow:0 10px 30px rgba(20,4,3,.35)}
+.telugu{font-family:var(--telugu);font-weight:600;color:var(--gold-text);
+  font-size:clamp(1.5rem,4vw,2.9rem);line-height:1.35;
+  text-shadow:0 2px 18px rgba(30,8,6,.6)}
+.rule{display:flex;align-items:center;gap:.9rem;justify-content:center;margin:.55rem 0 .3rem}
+.rule i{display:block;height:1px;width:clamp(40px,8vw,120px);background:linear-gradient(90deg,transparent,var(--gold));}
+.rule i:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+.rule b{width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.tagline{font-style:italic;font-weight:300;color:var(--bone);
+  font-size:clamp(.95rem,1.5vw,1.25rem);letter-spacing:.04em;
+  text-shadow:0 2px 14px rgba(30,8,6,.7)}
+h1{font-weight:420;line-height:.92;margin-top:clamp(.6rem,2vh,1.4rem);
+  text-shadow:0 3px 26px rgba(24,6,4,.65)}
+h1 .l1{display:block;font-style:italic;font-weight:330;color:var(--gold-text);
+  font-size:clamp(2rem,7vw,6.2rem);letter-spacing:.30em;text-indent:.30em}
+h1 .l2{display:block;color:var(--bone);
+  font-size:clamp(2.6rem,10.4vw,9.2rem);letter-spacing:.045em;
+  font-variation-settings:"opsz" 144}
+
+/* live museum caption */
+.caption{position:relative;z-index:5;margin-top:clamp(.7rem,1.6vh,1.2rem);
+  font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone);text-align:center}
+.caption em{font-style:normal;color:var(--gold-text)}
+
+/* ---------- EMBROIDERED TAGS ---------- */
+.tags{position:relative;z-index:5;display:flex;flex-wrap:wrap;gap:.55rem;
+  justify-content:center;margin-top:clamp(.8rem,2vh,1.4rem)}
+.tag{font-family:var(--telugu);font-size:.78rem;letter-spacing:.06em;
+  color:var(--bone);background:rgba(92,19,15,.55);
+  border:1px dashed rgba(236,226,204,.75);border-radius:3px;
+  padding:.5rem .85rem .45rem;cursor:pointer;position:relative;
+  transition:background .25s,color .25s,transform .25s}
+.tag::before{content:"";position:absolute;top:-3px;left:50%;width:5px;height:5px;margin-left:-2.5px;
+  background:var(--gold);transform:rotate(45deg)}
+.tag:hover{transform:translateY(-2px)}
+.tag[aria-pressed="true"]{background:var(--bone);color:var(--madder-deep);border-style:solid;border-color:var(--bone)}
+.tag:focus-visible{outline:2px solid var(--gold-text);outline-offset:3px}
+
+/* ---------- FOOTER ---------- */
+footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:0 calc(var(--fw)*1.2 + 118px) 0 calc(var(--fw)*1.2 + 118px);
+  margin-top:clamp(.9rem,2vh,1.5rem)}
+.accn{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-text);line-height:1.9}
+.enter{font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;text-indent:.4em;
+  color:var(--madder-deep);background:var(--bone);text-decoration:none;
+  padding:.95rem 1.9rem .9rem;border-radius:3px;white-space:nowrap;
+  border:1px solid var(--bone);outline:1px dashed rgba(122,31,26,.6);outline-offset:-5px;
+  transition:background .25s,color .25s}
+.enter:hover{background:var(--gold-text);border-color:var(--gold-text);outline-color:rgba(92,19,15,.7)}
+.count{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-text);text-align:right;line-height:1.9}
+
+/* all-concepts badge */
+.badge{position:fixed;z-index:60;left:calc(var(--fw) + 12px);bottom:calc(var(--fw) + 10px);
+  font-family:var(--serif);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--bone);text-decoration:none;background:rgba(43,10,8,.85);
+  border:1px dashed rgba(236,226,204,.7);border-radius:3px;padding:.45rem .8rem}
+.badge:hover{background:var(--bone);color:var(--madder-deep)}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1100px){.panel{display:none}}
+@media (max-width:760px){
+  .stage{padding:calc(var(--fw) + 12px) calc(var(--fw) + 10px)}
+  header{font-size:.56rem;letter-spacing:.24em}
+  .window{width:min(88vw,440px);top:1%;bottom:10%;
+    border-radius:calc(min(88vw,440px)/2) calc(min(88vw,440px)/2) 8px 8px}
+  .tags{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;
+    padding-bottom:.4rem;scrollbar-width:none;margin-left:-4px;margin-right:-4px}
+  .tags::-webkit-scrollbar{display:none}
+  .tag{flex:0 0 auto}
+  footer{flex-direction:column;gap:.8rem;text-align:center;padding:0 0 2.4rem}
+  .accn,.count{text-align:center}
+  .badge{left:auto;right:calc(var(--fw) + 8px);bottom:calc(var(--fw) + 8px)}
+  .caption{letter-spacing:.18em}
+}
+@media (prefers-reduced-motion:reduce){
+  .boat{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <header>
+    <div>Andhra Pradesh <span>·</span> India</div>
+    <div class="r">The Godavari Delta <span>·</span> Hand-Painted Country</div>
+  </header>
+
+  <div class="hero">
+    <figure class="panel l" role="img" aria-label="Kalamkari painting of Nannayya's court"><figcaption>Nannayya's Court</figcaption></figure>
+    <figure class="panel r" role="img" aria-label="Kalamkari painting of night lamps on the river"><figcaption>Lamps on the River</figcaption></figure>
+
+    <div class="window" id="win" aria-hidden="true">
+      <div class="media">
+        <video id="vid" src="../media/film-0.mp4" autoplay muted loop playsinline></video>
+        <img class="ph" id="ph" src="../img/sadhu-boat-wide-800.webp" alt="">
+      </div>
+      <div class="shade" id="shade"></div>
+    </div>
+
+    <div class="id">
+      <div class="band">
+        <div class="telugu" lang="te">తూర్పు గోదావరి</div>
+        <div class="rule" aria-hidden="true"><i></i><b></b><i></i></div>
+        <p class="tagline">One river, and everything it grew.</p>
+      </div>
+      <h1><span class="l1">EAST</span><span class="l2">GODAVARI</span></h1>
+    </div>
+  </div>
+
+  <p class="caption" aria-live="polite">Now showing — <em id="capName">Papikondalu at dawn</em> · <span id="capNote">fog on the hill gorge</span></p>
+
+  <nav class="tags" id="tags" aria-label="Places along the river">
+    <button class="tag" data-i="0" lang="te">పాపికొండలు · Papikondalu</button>
+    <button class="tag" data-i="1" lang="te">రాజమహేంద్రవరం · Rajahmundry</button>
+    <button class="tag" data-i="2" lang="te">ధవళేశ్వరం · Dowleswaram</button>
+    <button class="tag" data-i="3" lang="te">కడియం · Kadiyam</button>
+    <button class="tag" data-i="4" lang="te">కోనసీమ · Konaseema</button>
+    <button class="tag" data-i="5" lang="te">గౌతమీ ఘాట్ · Gowthami Ghat</button>
+    <button class="tag" data-i="6" lang="te">అంతర్వేది · Antarvedi</button>
+  </nav>
+
+  <footer>
+    <div class="accn">Accession EG-1852<br>Cotton · madder &amp; indigo · hand-painted</div>
+    <a class="enter" href="../index.html">Enter the Full Site</a>
+    <div class="count">Seven places<br>One river</div>
+  </footer>
+</div>
+
+<!-- kalamkari border frame -->
+<div class="frame" aria-hidden="true">
+  <div class="fs top"></div><div class="fs bottom"></div>
+  <div class="fs left"></div><div class="fs right"></div>
+</div>
+<div class="hairline" aria-hidden="true"></div>
+<div class="med tl" aria-hidden="true"></div><div class="med tr" aria-hidden="true"></div>
+<div class="med bl" aria-hidden="true"></div><div class="med br" aria-hidden="true"></div>
+<img class="boat" src="../media/launch-cut.webp" alt="" aria-hidden="true">
+
+<a class="badge" href="./">← all concepts</a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+<script>
+(function(){
+  var PLACES=[
+    {v:"../media/film-1.mp4", name:"Papikondalu", note:"a launch in the hill gorge"},
+    {v:"../media/film-2.mp4", name:"Rajahmundry", note:"the golden riverfront"},
+    {v:"../media/film-3.mp4", name:"Dowleswaram", note:"barrage & cast-nets"},
+    {v:"../media/film-4.mp4", name:"Kadiyam",     note:"flower-farm country"},
+    {v:"../media/film-5.mp4", name:"Konaseema",   note:"mirror paddies"},
+    {v:"../media/film-6.mp4", name:"Gowthami Ghat", note:"the evening harathi"},
+    {img:"../img/sadhu-boat-wide-1920.webp", img800:"../img/sadhu-boat-wide-800.webp",
+     name:"Antarvedi", note:"where the river meets the sea"}
+  ];
+  var vid=document.getElementById('vid'), ph=document.getElementById('ph'),
+      shade=document.getElementById('shade'), tags=document.getElementById('tags'),
+      capName=document.getElementById('capName'), capNote=document.getElementById('capNote');
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap=!!window.gsap;
+
+  function apply(p){
+    if(p.v){ ph.style.display='none'; vid.style.display='block'; vid.src=p.v; vid.play().catch(function(){}); }
+    else{ vid.pause(); vid.style.display='none';
+          ph.srcset=p.img800+' 800w, '+p.img+' 1920w'; ph.sizes='(max-width:760px) 88vw, 530px';
+          ph.src=p.img; ph.style.display='block'; }
+    capName.textContent=p.name; capNote.textContent=p.note;
+  }
+
+  tags.addEventListener('click',function(e){
+    var btn=e.target.closest('.tag'); if(!btn) return;
+    var p=PLACES[+btn.dataset.i];
+    tags.querySelectorAll('.tag').forEach(function(t){t.setAttribute('aria-pressed', t===btn?'true':'false');});
+    if(hasGsap && !reduced){
+      // cloth pass-through wipe: shade sweeps down over the window, media swaps mid-pass
+      gsap.timeline()
+        .set(shade,{yPercent:-104})
+        .to(shade,{yPercent:0,duration:.45,ease:"power2.in",onComplete:function(){apply(p);}})
+        .to(shade,{yPercent:104,duration:.55,ease:"power2.out"},"+=0.05");
+    } else { apply(p); }
+  });
+
+  // load choreography: cloth unrolls, type rises — ~2.2s total
+  if(hasGsap && !reduced){
+    var tl=gsap.timeline({defaults:{ease:"power3.out"}});
+    tl.from(".fs.top",{yPercent:-100,duration:.6},0)
+      .from(".fs.bottom",{yPercent:100,duration:.6},0)
+      .from(".fs.left",{xPercent:-100,duration:.6},0)
+      .from(".fs.right",{xPercent:100,duration:.6},0)
+      .from([".med",".hairline",".boat"],{opacity:0,duration:.5},.35)
+      .fromTo("#win",{clipPath:"inset(0 0 100% 0)"},{clipPath:"inset(0 0 0% 0)",duration:1,ease:"power3.inOut"},.25)
+      .from(".panel",{opacity:0,y:24,duration:.6,stagger:.1},.7)
+      .from(".band",{opacity:0,y:18,duration:.55},.75)
+      .from("h1 span",{opacity:0,y:44,duration:.7,stagger:.12},.95)
+      .from([".caption",".tag","footer",".badge"],{opacity:0,y:14,duration:.45,stagger:.035},1.35);
+  }
+})();
+</script>
+</body>
+</html>

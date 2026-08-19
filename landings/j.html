@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marigold Bazaar — East Godavari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Serif+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f6efe1;
+    --ink:#201005;
+    --marigold:#f5a623;
+    --rose:#e5527a;
+    --leaf:#2f7d4f;
+    --turmeric:#eec643;
+    --radius:22px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Baloo 2",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .te{font-family:"Noto Serif Telugu",serif}
+
+  .wrap{max-width:1520px;margin:0 auto;padding:clamp(14px,2.5vw,32px)}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    font-weight:700;font-size:clamp(.72rem,1.1vw,.85rem);
+    letter-spacing:.14em;text-transform:uppercase;
+  }
+  .topbar .dot{display:inline-block;width:.55em;height:.55em;border-radius:50%;background:var(--rose);margin:0 .5em;vertical-align:middle}
+  .topbar .right{letter-spacing:.22em;text-align:right}
+  @media (max-width:560px){ .topbar .right{display:none} }
+
+  /* ---------- headline ---------- */
+  .hero{padding:clamp(18px,3.5vw,44px) 0 0}
+  .hl-mask{overflow:hidden}
+  .hl-line{display:block;will-change:transform}
+  h1{
+    font-weight:800;
+    line-height:.92;
+    letter-spacing:-.015em;
+    text-transform:uppercase;
+    font-size:clamp(3.1rem,11.6vw,11.5rem);
+  }
+  h1 .east{
+    display:flex;align-items:baseline;flex-wrap:wrap;column-gap:.35em;
+    font-size:.42em;letter-spacing:.02em;
+  }
+  h1 .east .te{
+    font-size:.72em;font-weight:700;color:var(--rose);
+    letter-spacing:0;text-transform:none;transform:translateY(-.04em);
+  }
+  .tagline{
+    margin-top:clamp(10px,1.4vw,18px);
+    font-weight:600;font-size:clamp(.95rem,1.5vw,1.25rem);
+    letter-spacing:.01em;max-width:34ch;
+  }
+  .tagline em{font-style:normal;color:var(--leaf)}
+
+  /* ---------- marquee strip + boat ---------- */
+  .strip-wrap{position:relative;margin:clamp(18px,3vw,34px) 0 0}
+  .strip{
+    background:var(--marigold);
+    border-radius:999px;
+    overflow:hidden;
+    padding:.55em 0;
+    will-change:transform;
+  }
+  .strip .track{
+    display:flex;white-space:nowrap;width:max-content;
+    animation:mq 26s linear infinite;
+    font-weight:800;text-transform:uppercase;
+    font-size:clamp(.8rem,1.4vw,1.05rem);letter-spacing:.12em;
+  }
+  .strip .track span{padding:0 .9em}
+  .strip .track .te{font-weight:700;letter-spacing:0;text-transform:none}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  /* the source cutout has big transparent padding — these ratios crop to the hull */
+  .boat{
+    position:absolute;right:clamp(14px,5vw,70px);bottom:10px;
+    width:clamp(130px,14vw,200px);aspect-ratio:3.5/1;
+    pointer-events:none;z-index:2;
+  }
+  .boat img{
+    position:absolute;width:272%;left:-89%;bottom:-147%;
+    filter:drop-shadow(0 6px 8px rgba(32,16,5,.28));
+  }
+  @media (prefers-reduced-motion:reduce){ .strip .track{animation:none} }
+
+  /* ---------- bento grid ---------- */
+  .bento{
+    display:grid;gap:clamp(8px,1vw,12px);
+    margin-top:clamp(10px,1.4vw,16px);
+    grid-template-columns:repeat(6,1fr);
+    grid-auto-rows:160px;
+    grid-template-areas:
+      "papi papi papi anta kadi kadi"
+      "papi papi papi anta count count"
+      "raja raja dance dance kona kona"
+      "raja raja dance dance dowl dowl"
+      "ghat ghat ghat cta cta cta";
+  }
+  .tile{
+    position:relative;border-radius:var(--radius);overflow:hidden;
+    transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
+    text-decoration:none;color:inherit;
+  }
+  .tile:hover{transform:translateY(-6px);box-shadow:0 18px 34px -14px rgba(32,16,5,.35)}
+  .tile video,.tile img.ph{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  }
+
+  /* caption chips */
+  .chip{
+    position:absolute;left:12px;bottom:12px;z-index:2;
+    background:var(--ink);color:var(--cream);
+    border-radius:999px;padding:.38em 1em .42em;
+    font-weight:700;font-size:clamp(.72rem,1vw,.88rem);
+    letter-spacing:.05em;line-height:1.25;
+    display:flex;align-items:baseline;gap:.6em;max-width:calc(100% - 24px);
+  }
+  .chip .te{font-weight:600;letter-spacing:0;white-space:nowrap}
+  .chip .en{text-transform:uppercase;white-space:nowrap}
+  .num{
+    position:absolute;top:12px;left:12px;z-index:2;
+    background:var(--cream);color:var(--ink);
+    border-radius:999px;padding:.15em .65em;
+    font-weight:800;font-size:.78rem;letter-spacing:.1em;
+  }
+
+  /* flat glyph tiles — halftone dots for retro print feel */
+  .flat{
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:clamp(14px,1.6vw,22px);
+    background-image:radial-gradient(rgba(32,16,5,.12) 1px,transparent 1.5px);
+    background-size:14px 14px;
+  }
+  .flat .glyph{
+    font-weight:700;line-height:.9;align-self:center;margin:auto 0;
+    user-select:none;
+  }
+  .flat .lbl{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:clamp(.72rem,1vw,.85rem);line-height:1.3}
+  .flat .lbl .te{display:block;font-weight:600;letter-spacing:0;text-transform:none;font-size:1.05em}
+
+  .t-anta{grid-area:anta;background:var(--rose);color:var(--ink);transition:background .35s,color .35s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+  .t-anta .glyph{font-size:clamp(4rem,7vw,7.5rem)}
+  .t-anta:hover{background:var(--ink);color:var(--cream)}
+  .t-kona{grid-area:kona;background:var(--leaf);color:#fff;transition:background .35s,color .35s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+  .t-kona .glyph{font-size:clamp(3.4rem,5.5vw,6rem)}
+  .t-kona:hover{background:var(--ink);color:var(--cream)}
+  .t-kona .flat-row,.t-count .flat-row{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+
+  .t-count{grid-area:count;background:var(--turmeric);color:var(--ink)}
+  .t-count .glyph{font-size:clamp(4.2rem,7vw,7.8rem);line-height:.8}
+
+  .t-papi{grid-area:papi}
+  .t-kadi{grid-area:kadi}
+  .t-raja{grid-area:raja}
+  .t-dowl{grid-area:dowl}
+  .t-ghat{grid-area:ghat}
+  .t-dance{grid-area:dance}
+
+  /* colored ring frames on media tiles */
+  .t-papi{box-shadow:inset 0 0 0 0 transparent;border:4px solid var(--marigold)}
+  .t-dance{border:4px solid var(--rose)}
+  .t-ghat{border:4px solid var(--turmeric)}
+  .t-raja{border:4px solid var(--leaf)}
+  .t-kadi,.t-dowl{border:4px solid var(--marigold)}
+
+  /* CTA tile */
+  .t-cta{
+    grid-area:cta;background:var(--leaf);color:#fff;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(16px,2vw,30px);
+    background-image:radial-gradient(rgba(255,255,255,.14) 1px,transparent 1.5px);
+    background-size:14px 14px;
+    transition:background .35s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
+  }
+  .t-cta:hover{background:var(--ink)}
+  .t-cta .big{
+    font-weight:800;text-transform:uppercase;line-height:1;
+    font-size:clamp(1.15rem,2.3vw,2.1rem);letter-spacing:.02em;
+  }
+  .t-cta .big .te{display:block;font-weight:600;text-transform:none;font-size:.55em;margin-top:.4em;opacity:.95}
+  .t-cta .arrow{
+    flex:none;width:clamp(44px,4vw,64px);height:clamp(44px,4vw,64px);
+    border-radius:50%;background:var(--cream);color:var(--ink);
+    display:grid;place-items:center;font-size:clamp(1.3rem,2vw,1.8rem);font-weight:800;
+    transition:transform .35s;
+  }
+  .t-cta:hover .arrow{transform:translateX(6px)}
+
+  /* ---------- footer ---------- */
+  footer{
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding:clamp(20px,3vw,36px) 0 84px;
+    font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  }
+  footer .te{letter-spacing:0;text-transform:none;font-weight:600}
+
+  /* fixed badge */
+  .badge{
+    position:fixed;left:14px;bottom:14px;z-index:50;
+    background:var(--ink);color:var(--cream);text-decoration:none;
+    border-radius:999px;padding:.5em 1.1em;
+    font-family:"Baloo 2",sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.06em;
+    box-shadow:0 8px 20px -8px rgba(32,16,5,.5);
+    transition:transform .3s;
+  }
+  .badge:hover{transform:translateY(-3px)}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:760px){
+    .bento{
+      grid-template-columns:1fr 1fr;
+      grid-auto-rows:150px;
+      grid-template-areas:
+        "papi papi"
+        "papi papi"
+        "anta count"
+        "kadi kadi"
+        "raja raja"
+        "raja raja"
+        "dance dance"
+        "dance dance"
+        "kona dowl"
+        "ghat ghat"
+        "ghat ghat"
+        "cta cta";
+    }
+    .t-cta{flex-direction:row}
+    .chip{gap:.45em;padding:.34em .8em .4em}
+    .chip .te{display:none} /* keep chips from colliding on tiny tiles; Telugu stays on flat tiles + marquee */
+    .t-anta .glyph{font-size:4.6rem}
+    .tail{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <div>East Godavari<span class="dot"></span><span class="te">తూర్పు గోదావరి</span></div>
+    <div class="right">Andhra Pradesh &middot; India</div>
+  </header>
+
+  <section class="hero">
+    <h1>
+      <span class="hl-mask"><span class="hl-line east">East <span class="te">తూర్పు గోదావరి</span></span></span>
+      <span class="hl-mask"><span class="hl-line">Godavari</span></span>
+    </h1>
+    <p class="tagline hl-fade">One river, and <em>everything it grew</em> — seven places, picked like sweets from a bazaar tray.</p>
+  </section>
+
+  <div class="strip-wrap" aria-hidden="true">
+  <span class="boat"><img src="../media/launch-cut.webp" alt=""></span>
+  <div class="strip hl-strip">
+    <div class="track">
+      <!-- content ×2 for seamless loop -->
+      <span class="te">పాపికొండలు</span><span>Papikondalu ✦</span><span class="te">రాజమహేంద్రవరం</span><span>Rajahmundry ✦</span><span class="te">ధవళేశ్వరం</span><span>Dowleswaram ✦</span><span class="te">కడియం</span><span>Kadiyam ✦</span><span class="te">కోనసీమ</span><span>Konaseema ✦</span><span class="te">గౌతమీ ఘాట్</span><span>Gowthami Ghat ✦</span><span class="te">అంతర్వేది</span><span>Antarvedi ✦</span>
+      <span class="te">పాపికొండలు</span><span>Papikondalu ✦</span><span class="te">రాజమహేంద్రవరం</span><span>Rajahmundry ✦</span><span class="te">ధవళేశ్వరం</span><span>Dowleswaram ✦</span><span class="te">కడియం</span><span>Kadiyam ✦</span><span class="te">కోనసీమ</span><span>Konaseema ✦</span><span class="te">గౌతమీ ఘాట్</span><span>Gowthami Ghat ✦</span><span class="te">అంతర్వేది</span><span>Antarvedi ✦</span>
+    </div>
+  </div>
+  </div>
+
+  <main class="bento">
+
+    <figure class="tile t-papi">
+      <video src="../media/film-1.mp4" poster="../img/papikondalu-launch-800.webp" autoplay muted loop playsinline preload="metadata"></video>
+      <span class="num">01</span>
+      <figcaption class="chip"><span class="te">పాపికొండలు</span><span class="en">Papikondalu</span></figcaption>
+    </figure>
+
+    <div class="tile flat t-anta">
+      <span class="num" style="position:static;align-self:flex-start;background:var(--cream);color:var(--ink)">07</span>
+      <div class="glyph te" aria-hidden="true">అం</div>
+      <div class="lbl"><span class="te">అంతర్వేది</span>Antarvedi<span class="tail"> — where the river meets the sea</span></div>
+    </div>
+
+    <figure class="tile t-kadi">
+      <video src="../media/film-4.mp4" poster="../img/flower-farms-800.webp" autoplay muted loop playsinline preload="metadata"></video>
+      <span class="num">04</span>
+      <figcaption class="chip"><span class="te">కడియం</span><span class="en">Kadiyam</span></figcaption>
+    </figure>
+
+    <div class="tile flat t-count" aria-label="Seven places along one river">
+      <div class="flat-row">
+        <div class="glyph te" aria-hidden="true">౭</div>
+        <div class="lbl">Seven places<br>one river<span class="te">ఏడు చోట్లు · ఒకే నది</span></div>
+      </div>
+    </div>
+
+    <figure class="tile t-raja">
+      <video src="../media/film-2.mp4" poster="../img/rajahmundry-riverfront-800.webp" autoplay muted loop playsinline preload="metadata"></video>
+      <span class="num">02</span>
+      <figcaption class="chip"><span class="te">రాజమహేంద్రవరం</span><span class="en">Rajahmundry</span></figcaption>
+    </figure>
+
+    <figure class="tile t-dance">
+      <img class="ph" src="../img/dancer-kids-1920.webp" srcset="../img/dancer-kids-800.webp 800w, ../img/dancer-kids-1920.webp 1920w" sizes="(max-width:760px) 100vw, 34vw" alt="Young Kuchipudi dancers in costume">
+      <figcaption class="chip"><span class="te">నాట్యం</span><span class="en">The river dances too</span></figcaption>
+    </figure>
+
+    <div class="tile flat t-kona">
+      <div class="flat-row">
+        <div class="glyph te" aria-hidden="true">కో</div>
+        <div class="lbl"><span style="position:static" class="numtxt">05 · </span><span class="te">కోనసీమ</span>Konaseema</div>
+      </div>
+    </div>
+
+    <figure class="tile t-dowl">
+      <img class="ph" src="../img/barrage-castnet-1920.webp" srcset="../img/barrage-castnet-800.webp 800w, ../img/barrage-castnet-1920.webp 1920w" sizes="(max-width:760px) 50vw, 34vw" alt="Cast-net fisherman at Dowleswaram barrage">
+      <span class="num">03</span>
+      <figcaption class="chip"><span class="te">ధవళేశ్వరం</span><span class="en">Dowleswaram</span></figcaption>
+    </figure>
+
+    <figure class="tile t-ghat">
+      <video src="../media/film-6.mp4" poster="../img/harathi-night-800.webp" autoplay muted loop playsinline preload="metadata"></video>
+      <span class="num">06</span>
+      <figcaption class="chip"><span class="te">గౌతమీ ఘాట్</span><span class="en">Gowthami Ghat</span></figcaption>
+    </figure>
+
+    <a class="tile t-cta" href="../index.html">
+      <span class="big">Enter the full site<span class="te">పూర్తి సైట్ చూడండి</span></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+
+  </main>
+
+  <footer>
+    <div>Marigold Bazaar &middot; Concept J</div>
+    <div><span class="te">ఒకే నది — అది పెంచినదంతా</span></div>
+  </footer>
+</div>
+
+<a class="badge" href="./">← all concepts</a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+<script>
+/* ponytail: intro choreography only — page is short, so all tiles reveal in one
+   staggered timeline (no ScrollTrigger needed). Content fully visible without JS. */
+if (window.gsap && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl.from('.topbar', { y: -18, autoAlpha: 0, duration: .5 })
+    .from('.hl-line', { yPercent: 112, duration: .85, stagger: .1 }, .05)
+    .from('.hl-fade', { y: 16, autoAlpha: 0, duration: .6 }, .55)
+    .from('.hl-strip', { scaleX: 0, transformOrigin: 'left center', duration: .65, ease: 'power2.inOut' }, .45)
+    .from('.boat', { y: 40, autoAlpha: 0, duration: .6, ease: 'back.out(1.6)' }, .85)
+    .from('.tile', { y: 26, autoAlpha: 0, scale: .96, duration: .6, stagger: .07 }, .65)
+    .from('.badge', { y: 20, autoAlpha: 0, duration: .5 }, 1.1);
+
+  // boat bobs on the marigold strip — the one gentle signature motion
+  gsap.to('.boat', { y: -7, rotation: -2, duration: 2, yoyo: true, repeat: -1, ease: 'sine.inOut', delay: 1.5 });
+}
+</script>
+</body>
+</html>

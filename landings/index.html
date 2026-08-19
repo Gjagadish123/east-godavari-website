@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>East Godavari — landing concepts</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f4f8fb'/><text x='50' y='68' font-size='52' font-family='sans-serif' font-weight='800' fill='%232e6e9e' text-anchor='middle'>EG</text></svg>" />
+<title>East Godavari — seven landing concepts</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23141414'/><text x='50' y='68' font-size='52' font-family='sans-serif' font-weight='800' fill='%23f5a623' text-anchor='middle'>EG</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Mono&family=Noto+Serif+Telugu:wght@500&display=swap" rel="stylesheet" />
@@ -12,8 +12,8 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: "Bricolage Grotesque", system-ui, sans-serif;
-    background: #f4f8fb;
-    color: #16303f;
+    background: #141414;
+    color: #f2ead6;
     min-height: 100vh;
     padding: clamp(1.4rem, 4vw, 4rem);
   }
@@ -22,94 +22,120 @@
     font-size: 0.66rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #3e7ca6;
+    color: #f5a623;
   }
   h1 {
     font-weight: 800;
-    font-size: clamp(1.9rem, 5.5vw, 3.6rem);
+    font-size: clamp(2rem, 5.5vw, 3.8rem);
     line-height: 1.02;
     margin: 0.7rem 0 0.4rem;
   }
-  .te { font-family: "Noto Serif Telugu", serif; color: #3e7ca6; font-weight: 500; font-size: clamp(0.95rem, 2vw, 1.2rem); }
-  p.lead { max-width: 34rem; margin-top: 0.9rem; color: #48626f; font-size: 0.98rem; line-height: 1.65; }
+  .te { font-family: "Noto Serif Telugu", serif; color: #f5a623; font-weight: 500; font-size: clamp(0.95rem, 2vw, 1.2rem); }
+  p.lead { max-width: 36rem; margin-top: 0.9rem; color: #b9b0a2; font-size: 0.98rem; line-height: 1.65; }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: clamp(1rem, 2.5vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    gap: clamp(1rem, 2vw, 1.6rem);
     margin-top: clamp(2rem, 5vh, 3.5rem);
-    max-width: 72rem;
+    max-width: 84rem;
   }
   a.card {
     display: block;
-    background: #fff;
-    border: 1px solid #dce8f1;
     border-radius: 14px;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
+    border: 1px solid rgba(242, 234, 214, 0.14);
+    background: #1d1d1d;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
   }
-  a.card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(46, 110, 158, 0.14); }
-  .card__img { aspect-ratio: 16/10; overflow: hidden; background: #eaf2f8; }
+  a.card:hover { transform: translateY(-5px); box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5); }
+  .swatch { height: 7px; display: flex; }
+  .swatch i { flex: 1; }
+  .card__img { aspect-ratio: 16/10; overflow: hidden; }
   .card__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .card__body { padding: 1rem 1.15rem 1.25rem; }
-  .card__tag {
-    font-family: "Space Mono", monospace;
-    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
-    color: #3e7ca6;
-  }
-  .card__name { font-weight: 700; font-size: 1.18rem; margin-top: 0.35rem; }
-  .card__desc { font-size: 0.85rem; color: #48626f; line-height: 1.55; margin-top: 0.35rem; }
-  .current {
-    margin-top: clamp(2rem, 5vh, 3rem);
-    font-family: "Space Mono", monospace;
-    font-size: 0.7rem; letter-spacing: 0.12em;
-  }
-  .current a { color: #2e6e9e; }
+  .card__tag { font-family: "Space Mono", monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: #f5a623; }
+  .card__name { font-weight: 700; font-size: 1.16rem; margin-top: 0.35rem; }
+  .card__desc { font-size: 0.84rem; color: #b9b0a2; line-height: 1.55; margin-top: 0.35rem; }
+  .foot { margin-top: clamp(2.2rem, 5vh, 3.4rem); font-family: "Space Mono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: #b9b0a2; line-height: 2.1; }
+  .foot a { color: #f5a623; }
 </style>
 </head>
 <body>
-  <p class="eyebrow">For review · pick one</p>
-  <h1>Four new landing directions</h1>
-  <p class="te" lang="te">తూర్పు గోదావరి — నాలుగు కొత్త రూపాలు</p>
-  <p class="lead">All in light palettes — white and light blue, as asked. Same photographs, four completely
-    different first impressions. Open each on your phone, then tell us the letter.</p>
+  <p class="eyebrow">Round two · pick one (or mix two)</p>
+  <h1>Seven landing concepts</h1>
+  <p class="te" lang="te">తూర్పు గోదావరి — ఏడు కొత్త రూపాలు</p>
+  <p class="lead">Every concept has its own palette, its own idea, its own motion. Open each on your phone.
+    Reply with a letter — or a combination like &ldquo;H board + I typography&rdquo;.</p>
 
   <div class="grid">
-    <a class="card" href="./a.html">
-      <div class="card__img"><img src="../img/papikondalu-fog-800.webp" alt="" /></div>
+    <a class="card" href="./e.html">
+      <div class="swatch"><i style="background:#f3e9d2"></i><i style="background:#d43d2a"></i><i style="background:#e8a63c"></i><i style="background:#1d4e4a"></i></div>
+      <div class="card__img"><img src="../img/papikondalu-launch-800.webp" alt="" /></div>
       <div class="card__body">
-        <p class="card__tag">Concept A</p>
-        <p class="card__name">The Morning Paper</p>
-        <p class="card__desc">An editorial front page — serif masthead, hairline rules, the fog photo as a framed plate, places listed like a contents column.</p>
+        <p class="card__tag">Concept E</p>
+        <p class="card__name">Tollywood Matinee</p>
+        <p class="card__desc">A vintage Telugu cinema poster — hand-painted title energy, halftone stills, ticket-stub CTA. NOW SHOWING: the river.</p>
       </div>
     </a>
-    <a class="card" href="./b.html">
-      <div class="card__img"><img src="../img/fields-paddy-sunset-800.webp" alt="" /></div>
+    <a class="card" href="./f.html">
+      <div class="swatch"><i style="background:#7a1f1a"></i><i style="background:#1c2a52"></i><i style="background:#ece2cc"></i><i style="background:#c9a24b"></i></div>
+      <div class="card__img"><img src="../media/myth-kalamkari.webp" alt="" /></div>
       <div class="card__body">
-        <p class="card__tag">Concept B</p>
-        <p class="card__name">Sky &amp; Water</p>
-        <p class="card__desc">A pale-blue sky page with the delta as a living horizon at the bottom — huge light type floating in the air. Serene.</p>
+        <p class="card__tag">Concept F</p>
+        <p class="card__name">Kalamkari Frame</p>
+        <p class="card__desc">Madder red &amp; indigo museum textile — the page framed in real Kalamkari art, the fog film inside a cloth window. Heritage luxury.</p>
       </div>
     </a>
-    <a class="card" href="./c.html">
+    <a class="card" href="./g.html">
+      <div class="swatch"><i style="background:#d8e34a"></i><i style="background:#141414"></i><i style="background:#e63e8b"></i><i style="background:#ffffff"></i></div>
+      <div class="card__img"><img src="../img/flower-farms-800.webp" alt="" /></div>
+      <div class="card__body">
+        <p class="card__tag">Concept G</p>
+        <p class="card__name">Acid Delta</p>
+        <p class="card__desc">Chartreuse editorial zine — halftone black &amp; white photos at angles, one full-colour pop, magenta marquee. Loud and very 2026.</p>
+      </div>
+    </a>
+    <a class="card" href="./h.html">
+      <div class="swatch"><i style="background:#12352b"></i><i style="background:#c9a24b"></i><i style="background:#f2ead6"></i><i style="background:#0c0c0c"></i></div>
       <div class="card__img"><img src="../img/rajahmundry-riverfront-800.webp" alt="" /></div>
       <div class="card__body">
-        <p class="card__tag">Concept C</p>
-        <p class="card__name">The Split Studio</p>
-        <p class="card__desc">Agency split-screen — white type panel on the left, full-height media on the right that changes as you hover the seven places.</p>
+        <p class="card__tag">Concept H</p>
+        <p class="card__name">The Grand Departure</p>
+        <p class="card__desc">A heritage railway terminal — working split-flap board flipping through the seven places, brass clock, ticket CTA. All aboard.</p>
       </div>
     </a>
-    <a class="card" href="./d.html">
+    <a class="card" href="./i.html">
+      <div class="swatch"><i style="background:#d9b98a"></i><i style="background:#9a4a2e"></i><i style="background:#f6efe2"></i><i style="background:#2b1c12"></i></div>
+      <div class="card__img"><img src="../img/fields-paddy-sunset-800.webp" alt="" /></div>
+      <div class="card__body">
+        <p class="card__tag">Concept I</p>
+        <p class="card__name">Golden Hour, Redefined</p>
+        <p class="card__desc">Fashion-luxury: the golden riverfront film full-bleed with a colossal thin serif overlapping the horizon. Five-star calm.</p>
+      </div>
+    </a>
+    <a class="card" href="./j.html">
+      <div class="swatch"><i style="background:#f5a623"></i><i style="background:#e5527a"></i><i style="background:#2f7d4f"></i><i style="background:#eec643"></i></div>
       <div class="card__img"><img src="../img/dancer-kids-800.webp" alt="" /></div>
       <div class="card__body">
-        <p class="card__tag">Concept D</p>
-        <p class="card__name">River Journal</p>
-        <p class="card__desc">A traveller's scrapbook — photo cards pinned across white paper, a dotted boat route connecting them, handwritten notes.</p>
+        <p class="card__tag">Concept J</p>
+        <p class="card__name">Marigold Bazaar</p>
+        <p class="card__desc">Modern-Indian colour joy — a bento of marigold, rose and leaf-green tiles, some alive with film. Premium and playful.</p>
+      </div>
+    </a>
+    <a class="card" href="./k.html">
+      <div class="swatch"><i style="background:#140d08"></i><i style="background:#ffb03a"></i><i style="background:#e5442a"></i><i style="background:#c9a24b"></i></div>
+      <div class="card__img"><img src="../img/harathi-night-800.webp" alt="" /></div>
+      <div class="card__body">
+        <p class="card__tag">Concept K</p>
+        <p class="card__name">Diya Night</p>
+        <p class="card__desc">One dramatic ritual moment — flame-gradient type, the harathi film as a cinema strip, embers drifting. Prestige documentary.</p>
       </div>
     </a>
   </div>
 
-  <p class="current">Current live site (dark): <a href="../index.html">open it here</a></p>
+  <p class="foot">Current live site: <a href="../index.html">dark places deck</a><br />
+    Earlier light drafts (round one): <a href="./a.html">A</a> · <a href="./b.html">B</a> · <a href="./c.html">C</a> · <a href="./d.html">D</a></p>
 </body>
 </html>
