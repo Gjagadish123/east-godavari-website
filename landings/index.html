@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>East Godavari — landing concepts</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f4f8fb'/><text x='50' y='68' font-size='52' font-family='sans-serif' font-weight='800' fill='%232e6e9e' text-anchor='middle'>EG</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Mono&family=Noto+Serif+Telugu:wght@500&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    background: #f4f8fb;
+    color: #16303f;
+    min-height: 100vh;
+    padding: clamp(1.4rem, 4vw, 4rem);
+  }
+  .eyebrow {
+    font-family: "Space Mono", monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #3e7ca6;
+  }
+  h1 {
+    font-weight: 800;
+    font-size: clamp(1.9rem, 5.5vw, 3.6rem);
+    line-height: 1.02;
+    margin: 0.7rem 0 0.4rem;
+  }
+  .te { font-family: "Noto Serif Telugu", serif; color: #3e7ca6; font-weight: 500; font-size: clamp(0.95rem, 2vw, 1.2rem); }
+  p.lead { max-width: 34rem; margin-top: 0.9rem; color: #48626f; font-size: 0.98rem; line-height: 1.65; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+    margin-top: clamp(2rem, 5vh, 3.5rem);
+    max-width: 72rem;
+  }
+  a.card {
+    display: block;
+    background: #fff;
+    border: 1px solid #dce8f1;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+  }
+  a.card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(46, 110, 158, 0.14); }
+  .card__img { aspect-ratio: 16/10; overflow: hidden; background: #eaf2f8; }
+  .card__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card__body { padding: 1rem 1.15rem 1.25rem; }
+  .card__tag {
+    font-family: "Space Mono", monospace;
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #3e7ca6;
+  }
+  .card__name { font-weight: 700; font-size: 1.18rem; margin-top: 0.35rem; }
+  .card__desc { font-size: 0.85rem; color: #48626f; line-height: 1.55; margin-top: 0.35rem; }
+  .current {
+    margin-top: clamp(2rem, 5vh, 3rem);
+    font-family: "Space Mono", monospace;
+    font-size: 0.7rem; letter-spacing: 0.12em;
+  }
+  .current a { color: #2e6e9e; }
+</style>
+</head>
+<body>
+  <p class="eyebrow">For review · pick one</p>
+  <h1>Four new landing directions</h1>
+  <p class="te" lang="te">తూర్పు గోదావరి — నాలుగు కొత్త రూపాలు</p>
+  <p class="lead">All in light palettes — white and light blue, as asked. Same photographs, four completely
+    different first impressions. Open each on your phone, then tell us the letter.</p>
+
+  <div class="grid">
+    <a class="card" href="./a.html">
+      <div class="card__img"><img src="../img/papikondalu-fog-800.webp" alt="" /></div>
+      <div class="card__body">
+        <p class="card__tag">Concept A</p>
+        <p class="card__name">The Morning Paper</p>
+        <p class="card__desc">An editorial front page — serif masthead, hairline rules, the fog photo as a framed plate, places listed like a contents column.</p>
+      </div>
+    </a>
+    <a class="card" href="./b.html">
+      <div class="card__img"><img src="../img/fields-paddy-sunset-800.webp" alt="" /></div>
+      <div class="card__body">
+        <p class="card__tag">Concept B</p>
+        <p class="card__name">Sky &amp; Water</p>
+        <p class="card__desc">A pale-blue sky page with the delta as a living horizon at the bottom — huge light type floating in the air. Serene.</p>
+      </div>
+    </a>
+    <a class="card" href="./c.html">
+      <div class="card__img"><img src="../img/rajahmundry-riverfront-800.webp" alt="" /></div>
+      <div class="card__body">
+        <p class="card__tag">Concept C</p>
+        <p class="card__name">The Split Studio</p>
+        <p class="card__desc">Agency split-screen — white type panel on the left, full-height media on the right that changes as you hover the seven places.</p>
+      </div>
+    </a>
+    <a class="card" href="./d.html">
+      <div class="card__img"><img src="../img/dancer-kids-800.webp" alt="" /></div>
+      <div class="card__body">
+        <p class="card__tag">Concept D</p>
+        <p class="card__name">River Journal</p>
+        <p class="card__desc">A traveller's scrapbook — photo cards pinned across white paper, a dotted boat route connecting them, handwritten notes.</p>
+      </div>
+    </a>
+  </div>
+
+  <p class="current">Current live site (dark): <a href="../index.html">open it here</a></p>
+</body>
+</html>

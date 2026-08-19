@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>East Godavari — River Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Caveat:wght@500;600&family=Noto+Serif+Telugu:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfdfe;
+    --paper-2:#f4f8fb;
+    --grid:#e2edf5;
+    --ink:#16303f;
+    --ink-soft:#4a6b80;
+    --blue:#3e7ca6;
+    --blue-deep:#2e6e9e;
+    --blue-light:#7fb4d9;
+    --marigold:#e8a63c;
+    --card-shadow:0 12px 32px rgba(30,70,100,.16), 0 2px 8px rgba(30,70,100,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter",system-ui,sans-serif;
+    color:var(--ink);
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      var(--paper);
+    background-size:36px 36px, 36px 36px, auto;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .telugu{font-family:"Noto Serif Telugu",serif}
+  .hand{font-family:"Caveat",cursive}
+
+  /* ---------- header ---------- */
+  header{
+    position:absolute;top:0;left:0;right:0;z-index:30;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(16px,2.5vw,28px) clamp(18px,4vw,48px);
+  }
+  .brand{display:flex;flex-direction:column;line-height:1.15;text-decoration:none;color:var(--ink)}
+  .brand b{font-family:"Fraunces",serif;font-weight:650;font-size:clamp(.95rem,1.4vw,1.15rem);letter-spacing:.14em}
+  .brand span{font-size:clamp(.7rem,1vw,.8rem);color:var(--blue-deep)}
+  nav{display:flex;align-items:center;gap:clamp(14px,2.5vw,32px)}
+  nav a{
+    text-decoration:none;color:var(--ink-soft);
+    font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  }
+  nav a:hover{color:var(--blue-deep)}
+  nav a.cta{
+    color:var(--ink);font-weight:600;
+    border:1.5px solid var(--ink);border-radius:999px;
+    padding:.55em 1.2em;background:#fff;
+    transition:background .25s,color .25s;
+    white-space:nowrap;
+  }
+  nav a.cta:hover{background:var(--ink);color:#fff}
+  .nav-links{display:flex;gap:clamp(14px,2.5vw,32px)}
+  @media (max-width:720px){ .nav-links{display:none} }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100svh;overflow:hidden}
+
+  /* route svg */
+  .route-svg{
+    position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;
+  }
+  .route-svg path{
+    fill:none;stroke:var(--blue-light);stroke-width:2.5;
+    stroke-dasharray:1 10;stroke-linecap:round;
+  }
+
+  /* title block */
+  .title-block{
+    position:absolute;z-index:10;left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;width:min(92vw,760px);
+    padding:2rem 1rem;
+  }
+  .title-block::before{ /* soft glow so cards behind never fight the text */
+    content:"";position:absolute;inset:-8%;z-index:-1;
+    background:radial-gradient(ellipse at center, rgba(251,253,254,.95) 30%, rgba(251,253,254,0) 72%);
+  }
+  .kicker{
+    font-family:"Noto Serif Telugu",serif;
+    color:var(--blue-deep);
+    font-size:clamp(1.05rem,2vw,1.5rem);
+    letter-spacing:.06em;
+  }
+  h1{
+    font-family:"Fraunces",serif;font-weight:650;
+    font-size:clamp(2.9rem,8.5vw,7rem);
+    line-height:.98;letter-spacing:-.015em;
+    margin:.18em 0 .12em;
+  }
+  h1 .g{color:var(--blue)}
+  .tagline{
+    font-family:"Caveat",cursive;font-weight:500;
+    font-size:clamp(1.35rem,2.6vw,1.9rem);
+    color:var(--ink-soft);max-width:26em;margin:0 auto;
+  }
+  .enter{
+    display:inline-block;margin-top:clamp(1.2rem,2.5vw,2rem);
+    font-size:.8rem;letter-spacing:.18em;font-weight:600;text-transform:uppercase;
+    color:var(--ink);text-decoration:none;
+    background:#fff;border:1.5px solid var(--ink);border-radius:999px;
+    padding:.95em 2em;
+    box-shadow:0 6px 18px rgba(30,70,100,.12);
+    position:relative;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .enter::after{
+    content:"";position:absolute;left:1.6em;right:1.6em;bottom:.65em;height:2px;
+    background:var(--marigold);border-radius:2px;
+    transform:scaleX(0);transform-origin:left;transition:transform .3s;
+  }
+  .enter:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(30,70,100,.18)}
+  .enter:hover::after{transform:scaleX(1)}
+
+  /* ---------- polaroid cards ---------- */
+  .cards{position:absolute;inset:0;z-index:5}
+  .card{
+    position:absolute;
+    width:clamp(148px,15.5vw,236px);
+    background:#fff;
+    padding:9px 9px 10px;
+    border:1px solid #e6eff6;
+    box-shadow:var(--card-shadow);
+    border-radius:3px;
+  }
+  .card::before{ /* tape */
+    content:"";position:absolute;top:-11px;left:50%;
+    width:74px;height:22px;
+    transform:translateX(-50%) rotate(-3deg);
+    background:rgba(127,180,217,.38);
+    border-left:1px dashed rgba(255,255,255,.7);
+    border-right:1px dashed rgba(255,255,255,.7);
+  }
+  .card img,.card video{
+    display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--paper-2);
+  }
+  .card figcaption{padding:7px 3px 2px;line-height:1.25}
+  .card .hand{font-size:clamp(1.05rem,1.35vw,1.3rem);font-weight:600;color:var(--ink);display:block}
+  .card .telugu{font-size:clamp(.68rem,.85vw,.78rem);color:var(--blue-deep)}
+
+  .c-fog     {top:11%;  left:3.2%;  transform:rotate(-4deg)}
+  .c-launch  {bottom:9%; left:6.5%;  transform:rotate(3deg)}
+  .c-flowers {top:5.5%; left:33%;   transform:rotate(-2deg); width:clamp(132px,12.5vw,190px)}
+  .c-river   {top:10%;  right:3.5%; transform:rotate(3.5deg)}
+  .c-castnet {bottom:10%;right:5.5%; transform:rotate(-3deg)}
+  .c-paddy   {bottom:4.5%;left:45%;  transform:rotate(2deg); width:clamp(132px,12.5vw,190px)}
+
+  /* scribble note near a card */
+  .note{
+    position:absolute;z-index:6;
+    font-family:"Caveat",cursive;font-size:clamp(1.1rem,1.6vw,1.45rem);
+    color:var(--blue-deep);transform:rotate(-5deg);
+    max-width:12em;line-height:1.15;
+  }
+  .note-1{top:38%;left:5%}
+  .note-2{top:34%;right:4.5%;transform:rotate(4deg)}
+
+  /* ---------- places strip ---------- */
+  .strip{
+    background:#eaf2f8;border-top:1px solid #dcE9f2;
+    padding:clamp(20px,3vw,30px) clamp(18px,4vw,48px);
+  }
+  .strip-inner{
+    display:flex;align-items:center;gap:clamp(20px,3.2vw,44px);
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .strip-inner::-webkit-scrollbar{display:none}
+  .strip-label{
+    flex:none;font-family:"Caveat",cursive;font-size:1.3rem;color:var(--ink-soft);
+    transform:rotate(-3deg);
+  }
+  .place{flex:none;text-align:center;line-height:1.3;text-decoration:none;color:var(--ink)}
+  .place .telugu{display:block;font-size:.95rem;color:var(--blue-deep)}
+  .place small{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+  .place:hover small{color:var(--marigold)}
+
+  /* ---------- back badge ---------- */
+  .back-badge{
+    position:fixed;left:14px;bottom:14px;z-index:60;
+    font:500 .74rem/1 "Inter",system-ui,sans-serif;letter-spacing:.08em;
+    color:var(--ink-soft);text-decoration:none;
+    background:rgba(255,255,255,.92);border:1px solid var(--grid);border-radius:999px;
+    padding:.6em 1em;box-shadow:0 4px 14px rgba(30,70,100,.1);
+    backdrop-filter:blur(4px);
+  }
+  .back-badge:hover{color:var(--blue-deep)}
+
+  /* ---------- mobile: scrapbook flows instead of scatters ---------- */
+  @media (max-width:860px){
+    .hero{min-height:0;padding:110px 20px 40px}
+    .route-svg,.note{display:none}
+    .title-block{
+      position:static;transform:none;width:auto;padding:0 0 34px;
+    }
+    .title-block::before{display:none}
+    .cards{
+      position:static;display:grid;grid-template-columns:1fr 1fr;
+      gap:26px 16px;max-width:560px;margin:0 auto;
+    }
+    .card{position:static;width:auto !important}
+    .card:nth-child(odd){transform:rotate(-2.5deg)}
+    .card:nth-child(even){transform:rotate(2deg) translateY(10px)}
+    .card .hand{font-size:1.15rem}
+    .card .telugu{font-size:.72rem}
+  }
+  @media (max-width:400px){
+    .cards{gap:22px 12px}
+    .card{padding:7px 7px 8px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <header>
+    <a class="brand" href="../index.html">
+      <b>EAST&nbsp;GODAVARI</b>
+      <span class="telugu">తూర్పు గోదావరి</span>
+    </a>
+    <nav>
+      <div class="nav-links">
+        <a href="#">Journal</a>
+        <a href="#">Places</a>
+        <a href="#">Films</a>
+      </div>
+      <a class="cta" href="../index.html">Enter the full site</a>
+    </nav>
+  </header>
+
+  <!-- dotted river route -->
+  <svg class="route-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path id="route" d="M 120,215 C 300,120 460,90 610,150 C 740,200 900,120 1180,200 C 1330,245 1350,380 1240,470 C 1130,560 1230,660 1120,740 C 990,832 760,770 620,800 C 470,832 330,830 230,740 C 150,668 110,560 190,470 C 260,392 160,300 120,215 Z" pathLength="1000"/>
+    <g id="boat">
+      <!-- tiny boat: hull + marigold sail -->
+      <path d="M -13,3 Q 0,10 13,3 L 9,-1 L -9,-1 Z" fill="#2e6e9e"/>
+      <path d="M 1,-2 L 1,-15 L 10,-3 Z" fill="#e8a63c"/>
+      <line x1="1" y1="-15" x2="1" y2="-2" stroke="#16303f" stroke-width="1.2"/>
+    </g>
+  </svg>
+
+  <!-- pinned photographs -->
+  <div class="cards">
+    <figure class="card c-fog">
+      <img src="../img/papikondalu-fog-1920.webp" srcset="../img/papikondalu-fog-800.webp 800w, ../img/papikondalu-fog-1920.webp 1920w" sizes="(max-width:860px) 45vw, 16vw" alt="Fog lifting over the Papikondalu hills at dawn" loading="eager">
+      <figcaption><span class="hand">dawn, day one</span><span class="telugu">పాపికొండలు · Papikondalu</span></figcaption>
+    </figure>
+
+    <figure class="card c-flowers">
+      <img src="../img/flower-farms-1920.webp" srcset="../img/flower-farms-800.webp 800w, ../img/flower-farms-1920.webp 1920w" sizes="(max-width:860px) 45vw, 13vw" alt="Aerial blocks of flower farms in Kadiyam" loading="eager">
+      <figcaption><span class="hand">a field of colour</span><span class="telugu">కడియం · Kadiyam</span></figcaption>
+    </figure>
+
+    <figure class="card c-river">
+      <img src="../img/rajahmundry-riverfront-1920.webp" srcset="../img/rajahmundry-riverfront-800.webp 800w, ../img/rajahmundry-riverfront-1920.webp 1920w" sizes="(max-width:860px) 45vw, 16vw" alt="Golden aerial view of the Rajahmundry riverfront and bridges" loading="eager">
+      <figcaption><span class="hand">golden hour, three bridges</span><span class="telugu">రాజమహేంద్రవరం · Rajahmundry</span></figcaption>
+    </figure>
+
+    <figure class="card c-castnet">
+      <img src="../img/barrage-castnet-1920.webp" srcset="../img/barrage-castnet-800.webp 800w, ../img/barrage-castnet-1920.webp 1920w" sizes="(max-width:860px) 45vw, 16vw" alt="Fisherman casting a net near the Dowleswaram barrage" loading="eager">
+      <figcaption><span class="hand">the fisherman's arc</span><span class="telugu">ధవళేశ్వరం · Dowleswaram</span></figcaption>
+    </figure>
+
+    <figure class="card c-paddy">
+      <img src="../img/fields-paddy-sunset-1920.webp" srcset="../img/fields-paddy-sunset-800.webp 800w, ../img/fields-paddy-sunset-1920.webp 1920w" sizes="(max-width:860px) 45vw, 13vw" alt="Mirror-still paddy fields at sunset in Konaseema" loading="eager">
+      <figcaption><span class="hand">mirrors of rice</span><span class="telugu">కోనసీమ · Konaseema</span></figcaption>
+    </figure>
+
+    <figure class="card c-launch">
+      <video muted loop playsinline autoplay preload="metadata" poster="../img/papikondalu-launch-800.webp" aria-label="Tourist boat moving through the green Papikondalu gorge">
+        <source src="../media/film-1.mp4" type="video/mp4">
+      </video>
+      <figcaption><span class="hand">the launch, moving</span><span class="telugu">పాపికొండలు · the gorge</span></figcaption>
+    </figure>
+  </div>
+
+  <p class="note note-1">follow the river ↴</p>
+  <p class="note note-2">seven stops, one week</p>
+
+  <div class="title-block">
+    <p class="kicker">తూర్పు గోదావరి</p>
+    <h1>EAST<br><span class="g">GODAVARI</span></h1>
+    <p class="tagline">One river, and everything it grew. Seven places you will not forget.</p>
+    <a class="enter" href="../index.html">Enter the full site</a>
+  </div>
+</div>
+
+<!-- supporting strip: the seven stops -->
+<section class="strip" aria-label="The seven places">
+  <div class="strip-inner">
+    <span class="strip-label">the route →</span>
+    <a class="place" href="#"><span class="telugu">పాపికొండలు</span><small>Papikondalu</small></a>
+    <a class="place" href="#"><span class="telugu">రాజమహేంద్రవరం</span><small>Rajahmundry</small></a>
+    <a class="place" href="#"><span class="telugu">ధవళేశ్వరం</span><small>Dowleswaram</small></a>
+    <a class="place" href="#"><span class="telugu">కడియం</span><small>Kadiyam</small></a>
+    <a class="place" href="#"><span class="telugu">కోనసీమ</span><small>Konaseema</small></a>
+    <a class="place" href="#"><span class="telugu">గౌతమీ ఘాట్</span><small>Gowthami Ghat</small></a>
+    <a class="place" href="#"><span class="telugu">అంతర్వేది</span><small>Antarvedi</small></a>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+<script>
+(function(){
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var desktop = window.matchMedia("(min-width: 861px)").matches;
+
+  if (!reduced) {
+    var tl = gsap.timeline({defaults:{ease:"power3.out"}});
+    tl.from("header", {y:-18, autoAlpha:0, duration:.55})
+      .from(".title-block > *", {y:26, autoAlpha:0, duration:.7, stagger:.09}, .1)
+      .from(".card", {scale:.72, autoAlpha:0, duration:.6, stagger:.08,
+                      rotation:function(i,el){ return gsap.getProperty(el,"rotation") + 7; }}, .35)
+      .from(".route-svg path, .note", {autoAlpha:0, duration:.7}, .9);
+  }
+
+  // boat drifting along the dotted route (desktop only; svg hidden on mobile)
+  // ponytail: getPointAtLength instead of MotionPathPlugin — one less CDN file
+  if (desktop && !reduced) {
+    var path = document.getElementById("route"),
+        boat = document.getElementById("boat"),
+        L = path.getTotalLength(),
+        state = {t:0};
+    gsap.to(state, {t:1, duration:60, repeat:-1, ease:"none", onUpdate:function(){
+      var d = state.t * L,
+          p = path.getPointAtLength(d),
+          q = path.getPointAtLength((d + 2) % L),
+          a = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI;
+      // keep the boat upright-ish: flip instead of sailing upside down
+      if (a > 90 || a < -90) a += 180;
+      boat.setAttribute("transform", "translate(" + p.x + "," + p.y + ") rotate(" + a + ")");
+    }});
+  } else {
+    // park the boat at the start of the route when not animating
+    var p0 = document.getElementById("route").getPointAtLength(0);
+    document.getElementById("boat").setAttribute("transform","translate("+p0.x+","+p0.y+")");
+  }
+})();
+</script>
+
+<a class="back-badge" href="./">&larr; all variants</a>
+</body>
+</html>

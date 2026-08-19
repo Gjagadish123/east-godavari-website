@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>East Godavari — The Morning Paper</title>
+<meta name="description" content="One river, and everything it grew. Seven places you will not forget.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=Noto+Serif+Telugu:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --paper-2:#f4f8fb;
+    --paper-3:#eaf2f8;
+    --ink:#16303f;
+    --ink-soft:#3d5a6c;
+    --rule:#c9dcea;
+    --rule-strong:#7fb4d9;
+    --blue:#3e7ca6;
+    --blue-deep:#2e6e9e;
+    --marigold:#e8a63c;
+    --serif:"Fraunces", Georgia, serif;
+    --grot:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --telugu:"Noto Serif Telugu", serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  a{color:var(--blue-deep);}
+  img,video{display:block;max-width:100%;}
+  .page{
+    max-width:1360px;
+    margin:0 auto;
+    padding:clamp(16px,2.5vw,36px) clamp(16px,3.5vw,56px) 0;
+  }
+
+  /* ---------- top line ---------- */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    font-family:var(--grot);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+  }
+  .topline .mid{color:var(--blue);}
+  .topline span:nth-child(2){display:none;}
+  @media(min-width:720px){ .topline span:nth-child(2){display:inline;} }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    text-align:center;
+    padding:clamp(20px,3.2vw,44px) 0 clamp(14px,2vw,26px);
+  }
+  .masthead .telugu-line{
+    font-family:var(--telugu);
+    font-size:clamp(15px,1.6vw,21px);
+    font-weight:600;
+    color:var(--blue-deep);
+    letter-spacing:.28em;
+    margin-bottom:clamp(4px,.8vw,12px);
+  }
+  .masthead h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-variation-settings:"opsz" 144;
+    font-size:clamp(44px,9.2vw,138px);
+    line-height:.94;
+    letter-spacing:-.015em;
+    color:var(--ink);
+  }
+  .masthead h1 .amp{
+    font-style:italic;
+    font-weight:400;
+    color:var(--blue);
+  }
+  .masthead .dateline{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-top:clamp(12px,1.6vw,20px);
+    font-family:var(--grot);
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .masthead .dateline::before,
+  .masthead .dateline::after{
+    content:"";
+    flex:1;
+    max-width:180px;
+    height:1px;
+    background:var(--rule-strong);
+  }
+  .double-rule{
+    border-top:3px solid var(--rule-strong);
+    border-bottom:1px solid var(--rule-strong);
+    height:7px;
+  }
+
+  /* ---------- front page grid ---------- */
+  .front{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:clamp(28px,3vw,48px);
+    padding:clamp(24px,3vw,44px) 0 clamp(28px,3.4vw,52px);
+  }
+  @media(min-width:900px){
+    .front{grid-template-columns:230px minmax(0,1fr) 285px;}
+  }
+  @media(min-width:640px) and (max-width:899px){
+    .front{grid-template-columns:minmax(0,1fr) 260px;}
+    .index{grid-column:1 / -1;grid-row:2;}
+  }
+
+  .kicker{
+    font-family:var(--grot);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--blue-deep);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .kicker::after{content:"";flex:1;height:1px;background:var(--rule);}
+
+  /* ---------- index (contents) ---------- */
+  .index ol{
+    list-style:none;
+    counter-reset:place;
+  }
+  .index li{
+    counter-increment:place;
+    padding:13px 0 12px;
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    gap:14px;
+    align-items:baseline;
+  }
+  .index li:first-child{border-top:1px solid var(--rule);}
+  .index li::before{
+    content:"0" counter(place);
+    font-family:var(--grot);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.08em;
+    color:var(--rule-strong);
+    min-width:22px;
+  }
+  .index li:nth-child(4)::before{color:var(--marigold);}
+  .index a.place{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+    transition:color .25s ease;
+  }
+  .index a.place:hover{color:var(--blue-deep);}
+  .index .te{
+    font-family:var(--telugu);
+    font-size:15px;
+    font-weight:600;
+    line-height:1.7;
+    display:block;
+  }
+  .index .en{
+    font-family:var(--grot);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .index .footnote{
+    margin-top:16px;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  @media(min-width:640px) and (max-width:899px){
+    .index ol{display:grid;grid-template-columns:1fr 1fr;column-gap:32px;}
+    .index li:nth-child(2){border-top:1px solid var(--rule);}
+  }
+
+  /* ---------- the plate ---------- */
+  .plate{min-width:0;}
+  .plate figure{
+    background:var(--paper-2);
+    border:1px solid var(--rule);
+    padding:clamp(10px,1.2vw,16px);
+  }
+  .plate .frame{
+    position:relative;
+    overflow:hidden;
+  }
+  .plate img.photo{
+    width:100%;
+    aspect-ratio:16/10;
+    object-fit:cover;
+    transform:scale(1.06);
+  }
+  .plate figcaption{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    align-items:baseline;
+    padding-top:clamp(10px,1.2vw,14px);
+  }
+  .plate .cap{
+    font-style:italic;
+    font-size:clamp(13px,1.15vw,15px);
+    color:var(--ink-soft);
+    max-width:52ch;
+  }
+  .plate .credit{
+    font-family:var(--grot);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue);
+    white-space:nowrap;
+  }
+  .plate .headline{
+    margin-top:clamp(18px,2.2vw,30px);
+  }
+  .plate h2{
+    font-family:var(--serif);
+    font-weight:400;
+    font-variation-settings:"opsz" 100;
+    font-size:clamp(26px,3.4vw,46px);
+    line-height:1.12;
+    letter-spacing:-.01em;
+    max-width:22ch;
+  }
+  .plate h2 em{
+    font-style:italic;
+    color:var(--blue-deep);
+  }
+
+  /* ---------- lede column ---------- */
+  .lede .deck{
+    font-size:clamp(15px,1.25vw,17px);
+    line-height:1.65;
+    color:var(--ink-soft);
+    padding-bottom:20px;
+    border-bottom:1px solid var(--rule);
+  }
+  .lede .deck strong{color:var(--ink);font-weight:600;}
+  .lede .dropcap::first-letter{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:3.1em;
+    float:left;
+    line-height:.82;
+    padding:4px 8px 0 0;
+    color:var(--blue-deep);
+  }
+  .filmcard{margin-top:20px;}
+  .filmcard video{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border:1px solid var(--rule);
+  }
+  .filmcard .cap{
+    font-style:italic;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+  .enter{
+    margin-top:24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    text-decoration:none;
+    font-family:var(--grot);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--paper);
+    background:var(--blue-deep);
+    padding:15px 18px;
+    transition:background .25s ease;
+  }
+  .enter:hover{background:var(--ink);}
+  .enter .arrow{transition:transform .25s ease;}
+  .enter:hover .arrow{transform:translateX(4px);}
+
+  /* ---------- dispatches strip ---------- */
+  .strip{
+    border-top:1px solid var(--rule-strong);
+    padding:clamp(22px,2.6vw,36px) 0 clamp(36px,4vw,60px);
+  }
+  .strip .cols{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:clamp(24px,2.6vw,40px);
+  }
+  @media(min-width:720px){
+    .strip .cols{grid-template-columns:1fr 1fr 1fr;}
+    .strip .col + .col{border-left:1px solid var(--rule);padding-left:clamp(24px,2.6vw,40px);}
+  }
+  .strip .col .media{border:1px solid var(--rule);}
+  .strip img,.strip video{
+    width:100%;
+    aspect-ratio:3/2;
+    object-fit:cover;
+  }
+  .strip h3{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(18px,1.5vw,21px);
+    line-height:1.25;
+    margin:14px 0 6px;
+  }
+  .strip .te-tag{
+    font-family:var(--telugu);
+    font-weight:600;
+    font-size:13px;
+    color:var(--blue-deep);
+  }
+  .strip p{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+
+  /* ---------- folio ---------- */
+  .folio{
+    border-top:3px solid var(--rule-strong);
+    padding:14px 0 90px;
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    font-family:var(--grot);
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- badge ---------- */
+  .variants-badge{
+    position:fixed;
+    left:16px;
+    bottom:16px;
+    z-index:50;
+    font-family:var(--grot);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--ink-soft);
+    background:var(--paper);
+    border:1px solid var(--rule);
+    padding:8px 14px;
+    border-radius:999px;
+    box-shadow:0 2px 10px rgba(22,48,63,.08);
+    transition:color .2s ease,border-color .2s ease;
+  }
+  .variants-badge:hover{color:var(--blue-deep);border-color:var(--rule-strong);}
+
+  /* entrance: hide until GSAP runs (JS adds .js) */
+  .js .anim{opacity:0;}
+  @media (prefers-reduced-motion: reduce){
+    .js .anim{opacity:1 !important;transform:none !important;}
+    .js .plate img.photo{transform:scale(1) !important;clip-path:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="topline anim">
+    <span>Vol. I &middot; No. 1 &mdash; The River Edition</span>
+    <span class="mid">Andhra Pradesh, India &middot; on the banks of the Godavari</span>
+    <span>Dawn fog on the gorge &middot; 24&deg;C</span>
+  </div>
+
+  <header class="masthead">
+    <p class="telugu-line anim" lang="te">తూర్పు గోదావరి</p>
+    <h1 class="anim">EAST GODAVARI</h1>
+    <p class="dateline anim">Published each morning by the river &middot; free to all who cross it</p>
+  </header>
+
+  <div class="double-rule anim"></div>
+
+  <main class="front">
+
+    <aside class="index anim" aria-label="Contents">
+      <p class="kicker">In this edition</p>
+      <ol>
+        <li><a class="place" href="#"><span class="te" lang="te">పాపికొండలు</span><span class="en">Papikondalu</span></a></li>
+        <li><a class="place" href="#"><span class="te" lang="te">రాజమహేంద్రవరం</span><span class="en">Rajahmundry</span></a></li>
+        <li><a class="place" href="#"><span class="te" lang="te">ధవళేశ్వరం</span><span class="en">Dowleswaram</span></a></li>
+        <li><a class="place" href="#"><span class="te" lang="te">కడియం</span><span class="en">Kadiyam</span></a></li>
+        <li><a class="place" href="#"><span class="te" lang="te">కోనసీమ</span><span class="en">Konaseema</span></a></li>
+        <li><a class="place" href="#"><span class="te" lang="te">గౌతమీ ఘాట్</span><span class="en">Gowthami Ghat</span></a></li>
+        <li><a class="place" href="#"><span class="te" lang="te">అంతర్వేది</span><span class="en">Antarvedi</span></a></li>
+      </ol>
+      <p class="footnote">Seven places, one river. Full itineraries inside.</p>
+    </aside>
+
+    <section class="plate">
+      <figure class="anim">
+        <div class="frame">
+          <img class="photo" src="../img/papikondalu-fog-1920.webp"
+               srcset="../img/papikondalu-fog-800.webp 800w, ../img/papikondalu-fog-1920.webp 1920w"
+               sizes="(min-width:900px) 55vw, 100vw"
+               alt="Fog lifting off the forested hills of Papikondalu at dawn" fetchpriority="high">
+        </div>
+        <figcaption>
+          <span class="cap">First light over Papikondalu, where the Godavari narrows and the hills hold last night&rsquo;s fog until the boats arrive.</span>
+          <span class="credit">Photograph &middot; the Godavari desk</span>
+        </figcaption>
+      </figure>
+      <div class="headline anim">
+        <p class="kicker">The front plate</p>
+        <h2>One river, and everything it grew. <em>Seven places you will not forget.</em></h2>
+      </div>
+    </section>
+
+    <aside class="lede">
+      <div class="anim">
+        <p class="kicker">The morning lede</p>
+        <p class="deck dropcap">From the gorge at <strong>Papikondalu</strong> to the lamps of <strong>Antarvedi</strong>, this district is what a river does when it is given time. Read the water, then follow it.</p>
+      </div>
+      <div class="filmcard anim">
+        <video muted loop playsinline autoplay preload="metadata" src="../media/film-5.mp4" aria-label="Silent film: mirror paddies at sunset"></video>
+        <p class="cap">The moving picture: paddies turn to mirrors at sunset, Konaseema.</p>
+      </div>
+      <a class="enter anim" href="../index.html">Enter the full site <span class="arrow">&rarr;</span></a>
+    </aside>
+
+  </main>
+
+  <section class="strip anim" aria-label="Dispatches">
+    <p class="kicker">Dispatches from the banks</p>
+    <div class="cols">
+      <article class="col">
+        <div class="media">
+          <video muted loop playsinline autoplay preload="metadata" src="../media/film-1.mp4" aria-label="Silent film: tourist launch in the green gorge"></video>
+        </div>
+        <h3>The launch leaves at seven <span class="te-tag" lang="te">పాపికొండలు</span></h3>
+        <p>A day boat threads the green gorge; the hills close behind it like a page turning.</p>
+      </article>
+      <article class="col">
+        <div class="media">
+          <img src="../img/rajahmundry-riverfront-800.webp"
+               srcset="../img/rajahmundry-riverfront-800.webp 800w, ../img/rajahmundry-riverfront-1920.webp 1920w"
+               sizes="(min-width:720px) 30vw, 100vw"
+               alt="Golden aerial view of the Rajahmundry riverfront and its bridges" loading="lazy">
+        </div>
+        <h3>Three bridges, one gold hour <span class="te-tag" lang="te">రాజమహేంద్రవరం</span></h3>
+        <p>Rajahmundry&rsquo;s riverfront at evening, when the crossings stack up in the light.</p>
+      </article>
+      <article class="col">
+        <div class="media">
+          <img src="../img/barrage-castnet-800.webp"
+               srcset="../img/barrage-castnet-800.webp 800w, ../img/barrage-castnet-1920.webp 1920w"
+               sizes="(min-width:720px) 30vw, 100vw"
+               alt="A fisherman casting his net near the Dowleswaram barrage" loading="lazy">
+        </div>
+        <h3>The net and the barrage <span class="te-tag" lang="te">ధవళేశ్వరం</span></h3>
+        <p>At Dowleswaram the river is put to work, and the fishermen work it first.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="folio anim">
+    <span>East Godavari &mdash; the morning paper of a river</span>
+    <span lang="te" style="font-family:var(--telugu);text-transform:none;letter-spacing:.05em;">తూర్పు గోదావరి</span>
+    <span>Page 1 of 1</span>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+<script>
+  document.body.classList.add('js');
+  window.addEventListener('load', function(){
+    if(!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.body.classList.remove('js');
+      return;
+    }
+    var tl = gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.to('.masthead .anim', {opacity:1, y:0, duration:.7, stagger:.09}, 0)
+      .fromTo('.masthead .anim', {y:18}, {y:0, duration:.7, stagger:.09}, 0)
+      .fromTo('.double-rule', {scaleX:0, transformOrigin:'left center'}, {scaleX:1, opacity:1, duration:.8, ease:'power2.inOut'}, .25)
+      .to('.topline', {opacity:1, duration:.5}, .3)
+      .fromTo('.plate figure', {y:24}, {y:0, opacity:1, duration:.8}, .45)
+      .fromTo('.plate img.photo', {clipPath:'inset(100% 0 0 0)', scale:1.06}, {clipPath:'inset(0% 0 0 0)', scale:1, duration:1.1, ease:'power2.inOut'}, .45)
+      .fromTo('.index, .headline, .lede .anim', {y:16}, {y:0, opacity:1, duration:.65, stagger:.08}, .7)
+      .to('.strip, .folio', {opacity:1, duration:.6}, 1.2);
+  });
+</script>
+
+<a href="./" class="variants-badge">&larr; all variants</a>
+</body>
+</html>

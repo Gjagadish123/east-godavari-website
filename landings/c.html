@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>East Godavari — The Split Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800;900&family=Space+Mono:wght@400;700&family=Noto+Serif+Telugu:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --ground:#f4f8fb;
+    --panel:#eaf2f8;
+    --ink:#16303f;
+    --ink-soft:#4a6b7e;
+    --blue-light:#7fb4d9;
+    --blue-mid:#3e7ca6;
+    --blue-deep:#2e6e9e;
+    --marigold:#e8a63c;
+    --line:#d5e4ef;
+    --hold:2500ms;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:"Archivo",system-ui,sans-serif;
+    background:var(--ground);
+    color:var(--ink);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .telugu{font-family:"Noto Serif Telugu",serif}
+  .mono{font-family:"Space Mono",monospace}
+
+  .studio{
+    display:grid;
+    grid-template-columns:45% 55%;
+    min-height:100vh;
+    min-height:100svh;
+  }
+
+  /* ---------- LEFT PANEL ---------- */
+  .panel{
+    background:var(--white);
+    display:flex;
+    flex-direction:column;
+    padding:clamp(20px,3vw,44px) clamp(22px,3.4vw,52px);
+    border-right:1px solid var(--line);
+    position:relative;
+    z-index:2;
+  }
+  .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding-bottom:clamp(14px,2vh,22px);
+    border-bottom:1px solid var(--line);
+  }
+  .top .mono{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+  nav{display:flex;gap:clamp(12px,1.6vw,24px)}
+  nav a{
+    font-family:"Space Mono",monospace;
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-soft);text-decoration:none;
+    transition:color .25s;
+  }
+  nav a:hover{color:var(--blue-deep)}
+
+  .mark{padding:clamp(18px,3.4vh,40px) 0 clamp(12px,2vh,24px)}
+  .mark .telugu{
+    display:block;
+    font-size:clamp(13px,1.2vw,17px);
+    color:var(--blue-mid);
+    margin-bottom:.5em;
+  }
+  h1{
+    font-weight:900;
+    font-size:clamp(38px,4.6vw,72px);
+    line-height:.94;
+    letter-spacing:-.025em;
+    text-transform:uppercase;
+  }
+  h1 .row{display:block;overflow:hidden}
+  h1 .row span{display:inline-block}
+  h1 em{font-style:normal;color:var(--blue-mid)}
+  .tagline{
+    max-width:34ch;
+    font-size:clamp(13px,1.05vw,15px);
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin-top:clamp(10px,1.6vh,18px);
+  }
+  .tagline b{color:var(--ink);font-weight:600}
+
+  /* ---------- PLACE LIST ---------- */
+  .places{
+    list-style:none;
+    margin-top:auto;
+    border-top:1px solid var(--line);
+  }
+  .place{
+    position:relative;
+    display:flex;
+    align-items:baseline;
+    gap:clamp(12px,1.4vw,20px);
+    padding:clamp(7px,1.15vh,12px) 0;
+    border-bottom:1px solid var(--line);
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .place .num{
+    font-family:"Space Mono",monospace;
+    font-size:10px;
+    color:var(--blue-light);
+    min-width:2.2em;
+    transition:color .3s;
+  }
+  .place .name{
+    font-weight:800;
+    font-size:clamp(16px,1.7vw,25px);
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+    transition:color .3s, transform .3s;
+    transform-origin:left center;
+  }
+  .place .te{
+    font-size:clamp(10px,.85vw,12px);
+    color:var(--ink-soft);
+    margin-left:auto;
+    white-space:nowrap;
+    transition:color .3s;
+  }
+  .place .bar{
+    position:absolute;
+    left:0;bottom:-1px;
+    height:2px;width:100%;
+    background:var(--blue-mid);
+    transform:scaleX(0);
+    transform-origin:left;
+  }
+  .place.active .num{color:var(--blue-deep);font-weight:700}
+  .place.active .name{color:var(--blue-deep);transform:translateX(6px)}
+  .place.active .te{color:var(--blue-mid)}
+  .place.active .bar{animation:fill var(--hold) linear forwards}
+  .places.held .place.active .bar{animation-play-state:paused}
+  @keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+  .bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:clamp(14px,2.2vh,24px);
+  }
+  .enter{
+    font-family:"Space Mono",monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink);
+    text-decoration:none;
+    padding:12px 20px;
+    border:1px solid var(--ink);
+    transition:background .3s,color .3s,border-color .3s;
+  }
+  .enter:hover{background:var(--blue-deep);border-color:var(--blue-deep);color:var(--white)}
+  .coords{font-size:9px;color:var(--blue-light);letter-spacing:.12em;text-align:right;line-height:1.7}
+  .coords .dot{color:var(--marigold)}
+
+  /* ---------- RIGHT MEDIA ---------- */
+  .media{
+    position:relative;
+    overflow:hidden;
+    background:var(--panel);
+  }
+  .slide{
+    position:absolute;inset:0;
+    opacity:0;
+    transition:opacity .8s ease;
+  }
+  .slide.on{opacity:1}
+  .slide img,.slide video{
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .slide .cap{
+    position:absolute;
+    left:clamp(16px,2vw,32px);
+    bottom:clamp(16px,2.4vh,28px);
+    font-family:"Space Mono",monospace;
+    font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:#fff;
+    background:rgba(22,48,63,.55);
+    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px);
+    padding:8px 14px;
+  }
+  .media .frame{
+    position:absolute;inset:0;
+    pointer-events:none;
+    border:1px solid rgba(255,255,255,.25);
+    margin:clamp(10px,1.2vw,18px);
+    z-index:3;
+  }
+  .counter{
+    position:absolute;
+    top:clamp(16px,2vh,26px);
+    right:clamp(16px,2vw,30px);
+    font-family:"Space Mono",monospace;
+    font-size:11px;color:#fff;
+    letter-spacing:.2em;
+    z-index:4;
+    text-shadow:0 1px 8px rgba(22,48,63,.5);
+  }
+
+  /* ---------- BADGE ---------- */
+  .variants{
+    position:fixed;
+    left:14px;bottom:14px;
+    z-index:50;
+    font-family:"Space Mono",monospace;
+    font-size:10px;letter-spacing:.1em;
+    color:var(--ink-soft);
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:7px 12px;
+    text-decoration:none;
+    transition:color .25s,border-color .25s;
+  }
+  .variants:hover{color:var(--blue-deep);border-color:var(--blue-mid)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:860px){
+    .studio{grid-template-columns:1fr;grid-template-rows:52svh auto}
+    .media{order:-1;min-height:52svh}
+    .panel{border-right:none;border-top:1px solid var(--line);padding-bottom:64px}
+    .mark{padding-top:16px}
+    .places{margin-top:20px}
+    .place .te{display:none}
+    .bottom{flex-direction:column;align-items:flex-start;gap:14px}
+    .coords{text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .slide{transition:none}
+    .place.active .bar{animation-duration:1ms}
+  }
+</style>
+</head>
+<body>
+
+<main class="studio">
+
+  <!-- LEFT -->
+  <section class="panel">
+    <header class="top">
+      <span class="mono">EG — Travel Studio &nbsp;<span class="dot" style="color:var(--marigold)">●</span>&nbsp; AP, India</span>
+      <nav>
+        <a href="#">Journeys</a>
+        <a href="#">Film</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <div class="mark">
+      <span class="telugu">తూర్పు గోదావరి</span>
+      <h1>
+        <span class="row"><span>East</span></span>
+        <span class="row"><span>God<em>a</em>vari</span></span>
+      </h1>
+      <p class="tagline"><b>One river, and everything it grew.</b> Seven places you will not forget.</p>
+    </div>
+
+    <ol class="places" id="places">
+      <li class="place" data-i="0"><span class="num">01</span><span class="name">Papikondalu</span><span class="te telugu">పాపికొండలు</span><span class="bar"></span></li>
+      <li class="place" data-i="1"><span class="num">02</span><span class="name">Rajahmundry</span><span class="te telugu">రాజమహేంద్రవరం</span><span class="bar"></span></li>
+      <li class="place" data-i="2"><span class="num">03</span><span class="name">Dowleswaram</span><span class="te telugu">ధవళేశ్వరం</span><span class="bar"></span></li>
+      <li class="place" data-i="3"><span class="num">04</span><span class="name">Kadiyam</span><span class="te telugu">కడియం</span><span class="bar"></span></li>
+      <li class="place" data-i="4"><span class="num">05</span><span class="name">Konaseema</span><span class="te telugu">కోనసీమ</span><span class="bar"></span></li>
+      <li class="place" data-i="5"><span class="num">06</span><span class="name">Gowthami Ghat</span><span class="te telugu">గౌతమీ ఘాట్</span><span class="bar"></span></li>
+      <li class="place" data-i="6"><span class="num">07</span><span class="name">Antarvedi</span><span class="te telugu">అంతర్వేది</span><span class="bar"></span></li>
+    </ol>
+
+    <footer class="bottom">
+      <a class="enter" href="../index.html">Enter the full site →</a>
+      <p class="coords mono">16.9891° N <span class="dot">/</span> 82.2475° E<br>Godavari Delta</p>
+    </footer>
+  </section>
+
+  <!-- RIGHT -->
+  <section class="media" id="media" aria-label="Place imagery">
+    <div class="slide on">
+      <video muted loop playsinline autoplay preload="metadata" poster="../img/papikondalu-launch-1920.webp" src="../media/film-1.mp4"></video>
+      <span class="cap">01 — Boat through the gorge</span>
+    </div>
+    <div class="slide">
+      <video muted loop playsinline preload="metadata" poster="../img/rajahmundry-riverfront-1920.webp" src="../media/film-2.mp4"></video>
+      <span class="cap">02 — Riverfront at golden hour</span>
+    </div>
+    <div class="slide">
+      <img src="../img/barrage-castnet-1920.webp" srcset="../img/barrage-castnet-800.webp 800w, ../img/barrage-castnet-1920.webp 1920w" sizes="(max-width:860px) 100vw, 55vw" alt="Fisherman casting a net near Dowleswaram barrage" loading="lazy">
+      <span class="cap">03 — The cast net at the barrage</span>
+    </div>
+    <div class="slide">
+      <video muted loop playsinline preload="metadata" poster="../img/flower-farms-1920.webp" src="../media/film-4.mp4"></video>
+      <span class="cap">04 — Kadiyam flower farms</span>
+    </div>
+    <div class="slide">
+      <video muted loop playsinline preload="metadata" poster="../img/fields-paddy-sunset-1920.webp" src="../media/film-5.mp4"></video>
+      <span class="cap">05 — Mirror paddies of Konaseema</span>
+    </div>
+    <div class="slide">
+      <img src="../img/harathi-night-1920.webp" srcset="../img/harathi-night-800.webp 800w, ../img/harathi-night-1920.webp 1920w" sizes="(max-width:860px) 100vw, 55vw" alt="Evening harathi lamp ritual at Gowthami Ghat" loading="lazy">
+      <span class="cap">06 — Harathi on the Gowthami</span>
+    </div>
+    <div class="slide">
+      <img src="../img/sadhu-boat-wide-1920.webp" srcset="../img/sadhu-boat-wide-800.webp 800w, ../img/sadhu-boat-wide-1920.webp 1920w" sizes="(max-width:860px) 100vw, 55vw" alt="Sadhu on a boat near Antarvedi where the river meets the sea" loading="lazy">
+      <span class="cap">07 — Where the river meets the sea</span>
+    </div>
+    <div class="frame"></div>
+    <span class="counter" id="counter">01 / 07</span>
+  </section>
+
+</main>
+
+<a href="./" class="variants">← all variants</a>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js"></script>
+<script>
+(function(){
+  var items  = Array.prototype.slice.call(document.querySelectorAll('.place'));
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter = document.getElementById('counter');
+  var list = document.getElementById('places');
+  var HOLD = 2500, cur = 0, timer = null;
+
+  function setActive(i){
+    if(i === cur && items[i].classList.contains('active')) return;
+    items[cur].classList.remove('active');
+    slides[cur].classList.remove('on');
+    var oldV = slides[cur].querySelector('video');
+    if(oldV) oldV.pause();
+    cur = i;
+    items[cur].classList.add('active');
+    // restart progress bar animation
+    var bar = items[cur].querySelector('.bar');
+    bar.style.animation = 'none';
+    void bar.offsetWidth;
+    bar.style.animation = '';
+    slides[cur].classList.add('on');
+    var v = slides[cur].querySelector('video');
+    if(v){ var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+    counter.textContent = ('0'+(cur+1)).slice(-2) + ' / 07';
+  }
+
+  function start(){ stop(); timer = setInterval(function(){ setActive((cur+1)%items.length); }, HOLD); }
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+
+  items.forEach(function(el){
+    var i = +el.dataset.i;
+    el.addEventListener('mouseenter', function(){ stop(); list.classList.add('held'); setActive(i); });
+    el.addEventListener('click', function(){ stop(); list.classList.add('held'); setActive(i); });
+  });
+  list.addEventListener('mouseleave', function(){ list.classList.remove('held'); start(); });
+
+  items[0].classList.add('active');
+  start();
+
+  // ponytail: pause cycling + videos when tab hidden
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ stop(); var v = slides[cur].querySelector('video'); if(v) v.pause(); }
+    else if(!list.classList.contains('held')){ var v2 = slides[cur].querySelector('video'); if(v2) v2.play().catch(function(){}); start(); }
+  });
+
+  // entrance (<2s)
+  if(window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var tl = gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.from('.top', {y:-14, opacity:0, duration:.6})
+      .from('h1 .row span', {yPercent:110, duration:.8, stagger:.09}, .1)
+      .from('.mark .telugu, .tagline', {y:16, opacity:0, duration:.6, stagger:.08}, .35)
+      .from('.place', {x:-22, opacity:0, duration:.5, stagger:.05}, .5)
+      .from('.bottom', {y:14, opacity:0, duration:.5}, .85)
+      .from('.media', {clipPath:'inset(0 0 0 100%)', duration:1.1, ease:'power4.inOut'}, 0)
+      .from('.counter, .cap', {opacity:0, duration:.5}, 1.1);
+  }
+})();
+</script>
+</body>
+</html>
